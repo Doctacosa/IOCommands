@@ -1,0 +1,21 @@
+name: IOCommands
+main: com.interordi.iocommands.IOCommands
+version: 1.0
+api-version: 1.13
+
+commands:
+  home:
+    description: Go to the user's set home
+    usage: /home
+  sethome:
+    description: Set the current position as the user's home
+    usage: /sethome
+  warp:
+    description: Teleport a user to the named warp
+    usage: /warp DESTINATION
+  setwarp:
+    description: Create a warp at the user's current position
+    usage: /setwarp NAME
+  warps:
+    description: Get a list of existing warps
+    usage: /warps
