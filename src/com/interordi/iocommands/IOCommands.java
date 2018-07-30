@@ -1,6 +1,7 @@
 package com.interordi.iocommands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,11 +10,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.interordi.iocommands.modules.Warp;
 import com.interordi.iocommands.modules.Warps;
 
+import com.interordi.iocommands.modules.Homes;
+
+
 public class IOCommands extends JavaPlugin {
 
 	public static IOCommands instance;
+
 	public Warps warps;
-	
+	public Homes homes;
+
 	
 	public void onEnable() {
 		instance = this;
@@ -23,6 +29,7 @@ public class IOCommands extends JavaPlugin {
 		}
 		
 		this.warps = new Warps(this);
+		this.homes = new Homes(this);
 		
 		getLogger().info("IOCommands enabled");
 	}
@@ -95,7 +102,45 @@ public class IOCommands extends JavaPlugin {
 			warps.setWarp(player, name, player.getLocation());
 			player.sendMessage("§aWarp added!");
 			return true;
+		
+		} else if (cmd.getName().equalsIgnoreCase("home")) {
+			
+			//Fancy display to players, basic for others like the console
+			if (!(sender instanceof Player))
+				return false;
+			
+			Player player = (Player)sender;
+			if (!player.hasPermission("iocommands.home")) {
+				player.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+			
+			Location home = homes.getHome(player);
+			if (home == null) {
+				player.sendMessage("§cHome not set!");
+				return true;
+			}
+			
+			player.teleport(home);
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("sethome")) {
+			
+			//Fancy display to players, basic for others like the console
+			if (!(sender instanceof Player))
+				return false;
+			
+			Player player = (Player)sender;
+			if (!player.hasPermission("iocommands.home")) {
+				player.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+			
+			homes.setHome(player, player.getLocation());
+			player.sendMessage("§aHome set!");
+			return true;
 		}
+		
 		
 		return false;
 	}
