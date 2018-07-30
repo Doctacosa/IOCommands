@@ -81,6 +81,11 @@ public class Warps {
 		for(Map.Entry< String, Warp > entry: warps.entrySet()) {
 			String creator = entry.getValue().creator.toString();
 			Location pos = entry.getValue().location;
+
+			//Skip unknown worlds
+			if (pos.getWorld() == null)
+				continue;
+
 			String[] line = {
 					entry.getKey().toString(),
 					pos.getWorld().getName(),
