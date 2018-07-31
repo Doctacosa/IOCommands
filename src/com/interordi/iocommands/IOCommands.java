@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.interordi.iocommands.modules.Warp;
 import com.interordi.iocommands.modules.Warps;
-
+import com.interordi.iocommands.modules.FlightManager;
 import com.interordi.iocommands.modules.Homes;
 
 
@@ -19,6 +19,8 @@ public class IOCommands extends JavaPlugin {
 
 	public Warps warps;
 	public Homes homes;
+	public FlightManager thisFlightManager;
+	public PlayerListener thisPlayerListener;
 
 	
 	public void onEnable() {
@@ -28,8 +30,10 @@ public class IOCommands extends JavaPlugin {
 			getDataFolder().mkdir();
 		}
 		
+		thisPlayerListener = new PlayerListener(this);
 		this.warps = new Warps(this);
 		this.homes = new Homes(this);
+		thisFlightManager = new FlightManager(this);
 		
 		getLogger().info("IOCommands enabled");
 	}
@@ -139,9 +143,69 @@ public class IOCommands extends JavaPlugin {
 			homes.setHome(player, player.getLocation());
 			player.sendMessage("§aHome set!");
 			return true;
-		}
 		
+		} else if (cmd.getName().equalsIgnoreCase("flight")) {
+			
+			//Only players can run this command
+			boolean isConsole = !(sender instanceof Player);
+
+			Player user = null;
+			if (!isConsole)
+				user = (Player)sender;
+			
+			//Select the target of the command
+			Player target = null;
+			if (args.length >= 2) {
+				target = Bukkit.getServer().getPlayer(args[1]);
+				if (target == null) {
+					if (user != null)
+						user.sendMessage("§cTarget not found!");
+					return true;
+				}
+			} else {
+				try {
+					target = (Player)sender;
+				} catch (ClassCastException e) {
+					System.out.println("Failed to cast sender to Player");
+					return false;
+				}
+			}
+			
+			//Check if the user has permission to use this command
+			if (!isConsole && !user.hasPermission("iocommands.flight")) {
+				user.sendMessage("§cYou are not allowed to use this command!");
+				return true;
+			}
+			
+			int status = -1;
+			
+			if (args.length > 0) {
+				if (args[0].equalsIgnoreCase("on")) {
+					status = 1;
+				} else if (args[0].equalsIgnoreCase("off")) {
+					status = 0;
+				}
+			}
+			
+			thisFlightManager.setFlightStatus(user, target, status);
+			
+			return true;
+		}
 		
 		return false;
 	}
+
+
+	//Set the flight status of the given player
+	public void setFlightStatus(Player source, Player target, int status) {
+		thisFlightManager.setFlightStatus(source, target, status);
+	}
+
+
+	//Reset our flag on a player's flight status
+	public void resetPlayerFlight(Player player) {
+		thisFlightManager.resetFlightStatus(player);
+	}
+	
+	
 }

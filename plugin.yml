@@ -19,3 +19,6 @@ commands:
   warps:
     description: Get a list of existing warps
     usage: /warps
+  flight:
+    description: Enable and disable flight mode, if allowed.
+    usage: /flight
