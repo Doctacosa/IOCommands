@@ -46,6 +46,17 @@ public class IOCommands extends JavaPlugin {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		
+		//TODO: Command preprocessor, parse selectors, run multiple command instances if needed
+		/*
+		 * if(sender instanceof BlockCommandSender){
+		 * Block block = (Block)sender;
+		 * block.getBlock().getLocation()
+		 */
+		System.out.print("Command: "); 
+		System.out.println(cmd);
+		System.out.println(String.join(", ", args));
+		
 		if (cmd.getName().equalsIgnoreCase("warp")) {
 			
 			//Fancy display to players, basic for others like the console
