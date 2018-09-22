@@ -54,40 +54,43 @@ public class IOCommands extends JavaPlugin {
 		 * block.getBlock().getLocation()
 		 */
 		System.out.print("Command: "); 
-		System.out.println(cmd);
+		System.out.println(cmd.getName());
 		System.out.println(String.join(", ", args));
 		
+		sender.sendMessage(cmd.getName());
+		
 		if (cmd.getName().equalsIgnoreCase("warp")) {
+
+			Player target = null;
 			
-			//Fancy display to players, basic for others like the console
-			if (!(sender instanceof Player))
-				return false;
-			
-			Player player = (Player)sender;
-			if (!player.hasPermission("iocommands.warp")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
-				return true;
-			}
-			
-			Player target = player;
-			String name = "";
-			if (args.length > 1) {
-				target = Bukkit.getServer().getPlayer(args[0]);
-				if (target == null) {
-					player.sendMessage("§cTarget player not found!");
+			if (sender instanceof Player) {
+				Player player = (Player)sender;
+				target = player;
+				if (!sender.hasPermission("iocommands.warp")) {
+					player.sendMessage("§cYou are not allowed to use this command.");
 					return true;
 				}
-				name = args[1];
+			}
+			
+			String destination = "";
+			if (args.length > 1) {
+				target = Bukkit.getServer().getPlayer(args[0]);
+				destination = args[1];
 			} else if (args.length == 1) {
-				name = args[0];
+				destination = args[0];
 			} else {
-				player.sendMessage("§cMissing parameter: destination");
+				sender.sendMessage("§cMissing parameter: destination");
 				return true;
 			}
 			
-			Warp warp = warps.getWarp(name);
+			if (target == null) {
+				sender.sendMessage("§cTarget player not found!");
+				return true;
+			}
+			
+			Warp warp = warps.getWarp(destination);
 			if (warp == null) {
-				player.sendMessage("§cDestination not found!");
+				sender.sendMessage("§cDestination not found!");
 				return true;
 			}
 			
@@ -96,7 +99,6 @@ public class IOCommands extends JavaPlugin {
 
 		} else if (cmd.getName().equalsIgnoreCase("setwarp")) {
 			
-			//Fancy display to players, basic for others like the console
 			if (!(sender instanceof Player))
 				return false;
 			
@@ -120,7 +122,6 @@ public class IOCommands extends JavaPlugin {
 		
 		} else if (cmd.getName().equalsIgnoreCase("home")) {
 			
-			//Fancy display to players, basic for others like the console
 			if (!(sender instanceof Player))
 				return false;
 			
@@ -141,7 +142,6 @@ public class IOCommands extends JavaPlugin {
 
 		} else if (cmd.getName().equalsIgnoreCase("sethome")) {
 			
-			//Fancy display to players, basic for others like the console
 			if (!(sender instanceof Player))
 				return false;
 			
@@ -157,34 +157,25 @@ public class IOCommands extends JavaPlugin {
 		
 		} else if (cmd.getName().equalsIgnoreCase("flight")) {
 			
-			//Only players can run this command
-			boolean isConsole = !(sender instanceof Player);
-
-			Player user = null;
-			if (!isConsole)
-				user = (Player)sender;
-			
-			//Select the target of the command
 			Player target = null;
-			if (args.length >= 2) {
-				target = Bukkit.getServer().getPlayer(args[1]);
-				if (target == null) {
-					if (user != null)
-						user.sendMessage("§cTarget not found!");
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				target = user;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands.flight")) {
+					user.sendMessage("§cYou are not allowed to use this command!");
 					return true;
-				}
-			} else {
-				try {
-					target = (Player)sender;
-				} catch (ClassCastException e) {
-					System.out.println("Failed to cast sender to Player");
-					return false;
 				}
 			}
 			
-			//Check if the user has permission to use this command
-			if (!isConsole && !user.hasPermission("iocommands.flight")) {
-				user.sendMessage("§cYou are not allowed to use this command!");
+			//Select the target of the command
+			if (args.length >= 2) {
+				target = Bukkit.getServer().getPlayer(args[1]);
+			}
+			
+			if (target == null) {
+				sender.sendMessage("§cTarget not found!");
 				return true;
 			}
 			
@@ -198,7 +189,10 @@ public class IOCommands extends JavaPlugin {
 				}
 			}
 			
-			thisFlightManager.setFlightStatus(user, target, status);
+			Player source = null;
+			if (sender instanceof Player)
+				source = (Player)sender;
+			thisFlightManager.setFlightStatus(source, target, status);
 			
 			return true;
 		}
