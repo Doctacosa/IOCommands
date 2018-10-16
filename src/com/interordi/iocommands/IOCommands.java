@@ -1,5 +1,7 @@
 package com.interordi.iocommands;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,6 +11,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.interordi.iocommands.modules.Warp;
 import com.interordi.iocommands.modules.Warps;
+import com.interordi.utilities.Commands;
+
+import javafx.util.Pair;
+
 import com.interordi.iocommands.modules.FlightManager;
 import com.interordi.iocommands.modules.Homes;
 
@@ -47,15 +53,35 @@ public class IOCommands extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		//TODO: Command preprocessor, parse selectors, run multiple command instances if needed
-		/*
-		 * if(sender instanceof BlockCommandSender){
-		 * Block block = (Block)sender;
-		 * block.getBlock().getLocation()
-		 */
 		System.out.print("Command: "); 
 		System.out.println(cmd.getName());
-		System.out.println(String.join(", ", args));
+
+		//Get the list of potential targets if a selector was used
+		Pair< Integer, List< String > > results = Commands.findTargets(Bukkit.getServer(), sender, cmd, label, args);
+		
+		int position = results.getKey();
+		boolean result = false;
+		if (position != -1) {
+			//Run the command for each target identified by the selector
+			System.out.println("Targets:");
+			for (String target : results.getValue()) {
+				args[position] = target;
+				System.out.println(String.join(", ", args));
+				
+				result = runCommand(sender, cmd, label, args);
+			}
+		} else {
+			System.out.println("Running as-is");
+			//Run the command as-is
+			result = runCommand(sender, cmd, label, args);
+		}
+		
+		return result;
+	}
+	
+	
+	//Actually run the entered command
+	public boolean runCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		sender.sendMessage(cmd.getName());
 		
