@@ -83,8 +83,6 @@ public class IOCommands extends JavaPlugin {
 	//Actually run the entered command
 	public boolean runCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		sender.sendMessage(cmd.getName());
-		
 		if (cmd.getName().equalsIgnoreCase("warp")) {
 
 			Player target = null;
