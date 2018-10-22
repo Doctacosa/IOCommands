@@ -53,9 +53,6 @@ public class IOCommands extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		System.out.print("Command: "); 
-		System.out.println(cmd.getName());
-
 		//Get the list of potential targets if a selector was used
 		Pair< Integer, List< String > > results = Commands.findTargets(Bukkit.getServer(), sender, cmd, label, args);
 		
@@ -63,15 +60,12 @@ public class IOCommands extends JavaPlugin {
 		boolean result = false;
 		if (position != -1) {
 			//Run the command for each target identified by the selector
-			System.out.println("Targets:");
 			for (String target : results.getValue()) {
 				args[position] = target;
-				System.out.println(String.join(", ", args));
 				
 				result = runCommand(sender, cmd, label, args);
 			}
 		} else {
-			System.out.println("Running as-is");
 			//Run the command as-is
 			result = runCommand(sender, cmd, label, args);
 		}
