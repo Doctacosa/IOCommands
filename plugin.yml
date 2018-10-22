@@ -22,3 +22,6 @@ commands:
   flight:
     description: Enable and disable flight mode, if allowed.
     usage: /flight
+  keepinv:
+    description: Enable and disable the keepInventory flag for the given world
+    usage: /keepinv WORLD

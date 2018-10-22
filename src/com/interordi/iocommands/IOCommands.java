@@ -3,7 +3,9 @@ package com.interordi.iocommands;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -211,6 +213,46 @@ public class IOCommands extends JavaPlugin {
 			if (sender instanceof Player)
 				source = (Player)sender;
 			thisFlightManager.setFlightStatus(source, target, status);
+			
+			return true;
+			
+		} else if (cmd.getName().equalsIgnoreCase("keepinv")) {
+			
+			World target = null;
+			boolean action = false;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands.keepinv")) {
+					user.sendMessage("§cYou are not allowed to use this command!");
+					return true;
+				}
+				target = user.getWorld();
+			}
+			
+			//Select the target of the command
+			if (args.length == 1) {
+				if (target == null) {
+					sender.sendMessage("§cA world must be specified!");
+					return true;
+				}
+				action = args[0].equals("true");
+			} else if (args.length >= 2) {
+				target = Bukkit.getServer().getWorld(args[0]);
+				action = args[1].equals("true");
+			} else {
+				sender.sendMessage("§cA world must be specified!");
+				return true;
+			}
+			
+			if (target == null) {
+				sender.sendMessage("§cWorld not found!");
+				return true;
+			}
+			
+			target.setGameRule(GameRule.KEEP_INVENTORY, action);
+			sender.sendMessage("§aThe keepInventory rule for §f" + target.getName() + "§a is now §f" + action);
 			
 			return true;
 		}
