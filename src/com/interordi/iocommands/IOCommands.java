@@ -255,6 +255,34 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage("§aThe keepInventory rule for §f" + target.getName() + "§a is now §f" + action);
 			
 			return true;
+		
+		} else if (cmd.getName().equalsIgnoreCase("spawn")) {
+			
+			Player target = null;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				target = user;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands.warp")) {
+					user.sendMessage("§cYou are not allowed to use this command!");
+					return true;
+				}
+			}
+			
+			//Select the target of the command
+			if (args.length >= 1) {
+				target = Bukkit.getServer().getPlayer(args[0]);
+			}
+			
+			if (target == null) {
+				sender.sendMessage("§cTarget not found!");
+				return true;
+			}
+			
+			World w = target.getWorld();
+			target.teleport(w.getSpawnLocation());
+			
 		}
 		
 		return false;

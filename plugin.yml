@@ -25,3 +25,6 @@ commands:
   keepinv:
     description: Enable and disable the keepInventory flag for the given world
     usage: /keepinv WORLD
+  spawn:
+    description: Return to the current world's spawn point
+    usage: /spawn
