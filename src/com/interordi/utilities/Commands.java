@@ -2,7 +2,11 @@ package com.interordi.utilities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -31,6 +35,7 @@ public class Commands {
 		List< String > targets = new ArrayList< String >();
 		
 		int position = -1;
+		boolean sort = false;
 		
 		int i = 0;
 		for (String arg : args) {
@@ -40,6 +45,7 @@ public class Commands {
 			if (arg.startsWith("@p")) {
 				position = i;
 				limit = 1;
+				sort = true;
 				//TODO: Stuff
 			} else if (arg.startsWith("@r")) {
 				position = i;
@@ -156,9 +162,40 @@ public class Commands {
 				}
 				
 				
-				Collection<? extends Player> players = server.getOnlinePlayers();
-				for (Player player : players ) {
-					double distance = location.distance(player.getLocation());
+				Set< PlayerSort > players = null;
+				
+				if (sort) {
+					//Get the distance of each player and sort them
+					players = new TreeSet< PlayerSort >(new Comparator< PlayerSort >() {
+				        @Override
+				        public int compare(PlayerSort o1, PlayerSort o2) {
+				            if (o1.distance < o2.distance)
+				            	return 1;
+				            else if (o1.distance > o2.distance)
+				            	return -1;
+				            return 0;
+				        }
+				    });
+					
+					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
+					for (Player p : playersRaw) {
+						double distance = location.distance(p.getLocation());
+						players.add(new PlayerSort(p, distance));
+					}
+					
+				} else {
+					//Basic list with no distance
+					players = new HashSet< PlayerSort >();
+					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
+					for (Player p : playersRaw) {
+						players.add(new PlayerSort(p, 0));
+					}
+				}
+				
+				
+				for (PlayerSort ps : players) {
+					double distance = ps.distance;
+					Player player = ps.player;
 					
 					//Include players that match all conditions
 					if (distance >= minDistance &&
@@ -180,4 +217,16 @@ public class Commands {
 		return new Pair< Integer, List< String > >(position, targets);
 	}
 
+}
+
+
+
+class PlayerSort {
+	public PlayerSort(Player p, double i) {
+		player = p;
+		distance = i;
+	}
+	
+	public Player player;
+	public double distance;
 }
