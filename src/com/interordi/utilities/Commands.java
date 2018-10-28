@@ -167,15 +167,15 @@ public class Commands {
 				if (sort) {
 					//Get the distance of each player and sort them
 					players = new TreeSet< PlayerSort >(new Comparator< PlayerSort >() {
-				        @Override
-				        public int compare(PlayerSort o1, PlayerSort o2) {
-				            if (o1.distance < o2.distance)
-				            	return 1;
-				            else if (o1.distance > o2.distance)
-				            	return -1;
-				            return 0;
-				        }
-				    });
+						@Override
+						public int compare(PlayerSort o1, PlayerSort o2) {
+							if (o1.distance < o2.distance)
+								return -1;
+							else if (o1.distance > o2.distance)
+								return 1;
+							return 0;
+						}
+					});
 					
 					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
 					for (Player p : playersRaw) {
