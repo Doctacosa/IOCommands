@@ -2,6 +2,7 @@ package com.interordi.utilities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Commands {
 		
 		int position = -1;
 		boolean sort = false;
+		boolean random = false;
 		
 		int i = 0;
 		for (String arg : args) {
@@ -45,7 +47,7 @@ public class Commands {
 			} else if (arg.startsWith("@r")) {
 				position = i;
 				limit = 1;
-				//TODO: Stuff
+				random = true;
 			} else if (arg.startsWith("@a")) {
 				position = i;
 				limit = 0;
@@ -85,7 +87,7 @@ public class Commands {
 				
 				if (arg.indexOf("[") == 2) {
 					//Parameters found, parse them
-					IOCommands.instance.getLogger().info("arg: " + arg);
+					//IOCommands.instance.getLogger().info("arg: " + arg);
 					String params = arg.substring(3, arg.length()-1);
 					String[] paramsSplit = params.split(",");
 					for (String param : paramsSplit) {
@@ -122,19 +124,12 @@ public class Commands {
 							dz = Integer.parseInt(value);
 							break;
 						case "limit":
-							break;
 						case "level":
-							break;
 						case "gamemode":
-							break;
 						case "name":
-							break;
 						case "x_rotation":
-							break;
 						case "y_rotation":
-							break;
 						case "type":
-							break;
 						case "scores":
 						case "tag":
 						case "team":
@@ -197,7 +192,7 @@ public class Commands {
 						targets.add(player.getDisplayName());
 						
 						//Stop as soon as we reach the number of wanted targets
-						if (limit > 0 && targets.size() >= limit)
+						if (limit > 0 && targets.size() >= limit && !random)
 							break;
 					}
 				}
@@ -205,6 +200,11 @@ public class Commands {
 				break;
 			}
 
+			if (random) {
+				Collections.shuffle(targets);
+				targets = targets.subList(0, limit);
+			}
+			
 			i++;
 		}
 		
