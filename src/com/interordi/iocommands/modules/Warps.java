@@ -53,7 +53,7 @@ public class Warps {
 				warp.location = new Location(
 					Bukkit.getServer().getWorld(line[1]),
 					Double.parseDouble(line[3]), Double.parseDouble(line[4]), Double.parseDouble(line[5]),
-					Float.parseFloat(line[6]), Float.parseFloat(line[7])
+					Float.parseFloat(line[7]), Float.parseFloat(line[6])
 				);
 				warps.put(line[0], warp);
 			}
@@ -91,7 +91,7 @@ public class Warps {
 					pos.getWorld().getName(),
 					creator,
 					String.valueOf(pos.getX()), String.valueOf(pos.getY()), String.valueOf(pos.getZ()),
-					String.valueOf(pos.getYaw()), String.valueOf(pos.getPitch())
+					String.valueOf(pos.getPitch()), String.valueOf(pos.getYaw())
 			};
 			writer.writeNext(line);
 		}
