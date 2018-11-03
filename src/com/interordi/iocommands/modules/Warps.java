@@ -55,7 +55,7 @@ public class Warps {
 					Double.parseDouble(line[3]), Double.parseDouble(line[4]), Double.parseDouble(line[5]),
 					Float.parseFloat(line[7]), Float.parseFloat(line[6])
 				);
-				warps.put(line[0], warp);
+				warps.put(line[0].toLowerCase(), warp);
 			}
 			reader.close();
 		} catch (IOException e) {
@@ -87,7 +87,7 @@ public class Warps {
 				continue;
 
 			String[] line = {
-					entry.getKey().toString(),
+					entry.getKey().toString().toLowerCase(),
 					pos.getWorld().getName(),
 					creator,
 					String.valueOf(pos.getX()), String.valueOf(pos.getY()), String.valueOf(pos.getZ()),
@@ -108,7 +108,7 @@ public class Warps {
 	
 	//Get a wrap based on its name
 	public Warp getWarp(String name) {
-		return warps.get(name);
+		return warps.get(name.toLowerCase());
 	}
 	
 	
@@ -117,7 +117,7 @@ public class Warps {
 		Warp warp = new Warp();
 		warp.creator = creator.getUniqueId();
 		warp.location = pos;
-		warps.put(name, warp);
+		warps.put(name.toLowerCase(), warp);
 		save();
 	}
 
