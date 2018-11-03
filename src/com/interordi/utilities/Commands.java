@@ -17,6 +17,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.interordi.iocommands.IOCommands;
+
 import javafx.util.Pair;
 
 public class Commands {
@@ -24,13 +26,7 @@ public class Commands {
 	//Given a command, determine the potential targets by analyzing selectors
 	public static Pair< Integer, List< String > > findTargets(Server server, CommandSender sender, Command cmd, String label, String[] args) {
 		
-		//TODO: Command preprocessor, parse selectors, run multiple command instances if needed
-		/*
-		 * if(sender instanceof BlockCommandSender){
-		 * Block block = (Block)sender;
-		 * block.getBlock().getLocation()
-		 */
-		//TODO: Fail on parse error
+		//TODO: Clean fail on parse error
 		
 		List< String > targets = new ArrayList< String >();
 		
@@ -46,7 +42,6 @@ public class Commands {
 				position = i;
 				limit = 1;
 				sort = true;
-				//TODO: Stuff
 			} else if (arg.startsWith("@r")) {
 				position = i;
 				limit = 1;
@@ -54,7 +49,6 @@ public class Commands {
 			} else if (arg.startsWith("@a")) {
 				position = i;
 				limit = 0;
-				//TODO: Stuff
 			}
 			
 			if (position != -1) {
@@ -91,7 +85,8 @@ public class Commands {
 				
 				if (arg.indexOf("[") == 2) {
 					//Parameters found, parse them
-					String params = arg.substring(2, -1);
+					IOCommands.instance.getLogger().info("arg: " + arg);
+					String params = arg.substring(3, arg.length()-1);
 					String[] paramsSplit = params.split(",");
 					for (String param : paramsSplit) {
 						String key = param.split("=")[0];
@@ -109,12 +104,11 @@ public class Commands {
 							break;
 						case "distance":
 							if (value.contains("..")) {
-								String min = value.split("..")[0];
-								if (min.length() > 0)
-									minDistance = Integer.parseInt(min);
-								String max = value.split("..")[1];
-								if (max.length() > 0)
-									maxDistance = Integer.parseInt(max);
+								String[] parts = value.split("\\.\\.");
+								if (parts.length > 0 && parts[0].length() > 0)
+									minDistance = Integer.parseInt(parts[0]);
+								if (parts.length > 1 && parts[1].length() > 0)
+									maxDistance = Integer.parseInt(parts[1]);
 							} else
 								minDistance = maxDistance = Integer.parseInt(value);
 							break;
@@ -203,7 +197,7 @@ public class Commands {
 						targets.add(player.getDisplayName());
 						
 						//Stop as soon as we reach the number of wanted targets
-						if (targets.size() >= limit)
+						if (limit > 0 && targets.size() >= limit)
 							break;
 					}
 				}
