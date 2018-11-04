@@ -168,6 +168,8 @@ public class Commands {
 					
 					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
 					for (Player p : playersRaw) {
+						if (location.getWorld() != p.getWorld())
+							continue;
 						double distance = location.distance(p.getLocation());
 						players.add(new PlayerSort(p, distance));
 					}
