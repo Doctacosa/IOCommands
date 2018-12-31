@@ -256,6 +256,81 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 		
+		} else if (cmd.getName().equalsIgnoreCase("time")) {
+			
+			World target = null;
+			boolean set = false;
+			long time = 0;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands.time")) {
+					user.sendMessage("§cYou are not allowed to use this command!");
+					return true;
+				}
+				target = user.getWorld();
+			}
+			
+			//Select the target of the command
+			if (args.length == 0) {
+				set = false;
+				
+			} else if (args.length == 1) {
+				try {
+					time = extractTime(args, 0);
+					set = true;
+				} catch (NumberFormatException e) {
+					target = Bukkit.getServer().getWorld(args[0]);
+					set = false;
+				}
+				
+			} else if (args.length == 2) {
+				if (!sender.hasPermission("iocommands.time.set")) {
+					sender.sendMessage("§cYou are not allowed to use this command!");
+					return true;
+				}
+				
+				if (!args[0].equals("set")) {
+					target = Bukkit.getServer().getWorld(args[0]); 
+				}
+				
+				try {
+					time = extractTime(args, 1);
+					set = true;
+				} catch (NumberFormatException e) {
+					sender.sendMessage("§cInvalid time value: " + args[1]);
+					return true;
+				}
+				
+			} else {
+				sender.sendMessage("§cInvalid command!");
+				return true;
+			}
+			
+			if (target == null) {
+				sender.sendMessage("§cWorld not found!");
+				return true;
+			}
+			
+			//Set or get the time, as requested
+			if (set) {
+				target.setTime(time);
+			}
+			
+			long currentTime = target.getTime();
+			double hours = Math.floor(currentTime / 1000) + 6;
+			hours = hours % 24;
+			double minutes = Math.floor((currentTime - Math.floor(currentTime / 1000) * 1000) / 1000 * 60);
+
+			if (set) {
+				sender.sendMessage("§eTime for world " + target.getName() + " set to: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+			} else {
+				sender.sendMessage("§eTime: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+			}
+			
+			return true;
+		
 		} else if (cmd.getName().equalsIgnoreCase("spawn")) {
 			
 			Player target = null;
@@ -286,6 +361,22 @@ public class IOCommands extends JavaPlugin {
 		}
 		
 		return false;
+	}
+	
+	
+	//Process the time as provided in a command
+	public long extractTime(String[] args, int pos) throws NumberFormatException {
+		long time = 0;
+		
+		if (args[pos].endsWith("h") && args[pos].length() > 1) {
+			time = Long.parseLong(args[pos].substring(0, args[pos].length() - 1));
+			time = (time - 6) * 1000;
+			
+		} else {
+			time = Long.parseLong(args[pos]);
+		}
+		
+		return time;
 	}
 
 

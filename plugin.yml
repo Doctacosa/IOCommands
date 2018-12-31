@@ -28,3 +28,6 @@ commands:
   spawn:
     description: Return to the current world's spawn point
     usage: /spawn
+  time:
+    description: Get or set the time of a world
+    usage: /time LOCATION TIME
