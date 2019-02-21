@@ -31,3 +31,6 @@ commands:
   time:
     description: Get or set the time of a world
     usage: /time LOCATION TIME
+  kill:
+    description: Off yourself to return to your spawn point
+    usage: /kill

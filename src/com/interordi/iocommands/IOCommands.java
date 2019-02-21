@@ -358,6 +358,16 @@ public class IOCommands extends JavaPlugin {
 			World w = target.getWorld();
 			target.teleport(w.getSpawnLocation());
 			
+		} else if (cmd.getName().equalsIgnoreCase("kill")) {
+			
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("§cOnly players can run this command!");
+				return true;
+			}
+			
+			Player user = (Player)sender;
+			user.setHealth(0);
+			return true;
 		}
 		
 		return false;
