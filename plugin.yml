@@ -34,3 +34,15 @@ commands:
   kill:
     description: Off yourself to return to your spawn point
     usage: /kill
+  shock:
+    description: Send a shocking message to a player
+    usage: /shock TARGET AMOUNT
+  slap:
+    description: Slap a player (they probably deserved it)
+    usage: /slap TARGET AMOUNT
+  bslap:
+    description: Slap a player hard (they definitely deserved it)
+    usage: /bslap TARGET AMOUNT
+  rocket:
+    description: Send a player soaring in the air
+    usage: /rocket TARGET STRENGTH

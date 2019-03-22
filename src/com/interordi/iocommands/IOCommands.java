@@ -8,6 +8,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +20,7 @@ import com.interordi.utilities.Commands;
 import javafx.util.Pair;
 
 import com.interordi.iocommands.modules.FlightManager;
+import com.interordi.iocommands.modules.FunCommands;
 import com.interordi.iocommands.modules.Homes;
 
 
@@ -368,6 +371,59 @@ public class IOCommands extends JavaPlugin {
 			Player user = (Player)sender;
 			user.setHealth(0);
 			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("shock") ||
+				   cmd.getName().equalsIgnoreCase("rocket") ||
+				   cmd.getName().equalsIgnoreCase("slap") ||
+				   cmd.getName().equalsIgnoreCase("bslap")) {
+			
+			String command = cmd.getName().toLowerCase();
+			Player target = null;
+			boolean fromPlayer = (sender instanceof Player || sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender);
+			int amount = 1;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				target = user;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands." + command)) {
+					user.sendMessage("§cYou are not allowed to use this command!");
+					return true;
+				}
+			}
+			
+			//Select the target of the command
+			if (args.length >= 1) {
+				try {
+					amount = Integer.parseInt(args[0]);
+				} catch (NumberFormatException e) {
+					target = Bukkit.getServer().getPlayer(args[0]);
+				}
+			}
+			
+			if (args.length >= 2) {
+				amount = Integer.parseInt(args[1]);
+			}
+			
+			if (target == null) {
+				sender.sendMessage("§cTarget not found!");
+				return true;
+			}
+			
+			if (amount <= 0 || amount > 100)
+				amount = 1;
+			
+			if (command.equals("shock"))
+				FunCommands.shock(target, amount, fromPlayer);
+			else if (command.equals("rocket"))
+				FunCommands.rocket(target, amount, fromPlayer);
+			else if (command.equals("slap"))
+				FunCommands.slap(target, amount, fromPlayer, 1.0f);
+			else if (command.equals("bslap"))
+				FunCommands.slap(target, amount, fromPlayer, 4.0f);
+			
+			return true;
+
 		}
 		
 		return false;
