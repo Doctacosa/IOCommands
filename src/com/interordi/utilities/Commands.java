@@ -18,8 +18,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.interordi.iocommands.IOCommands;
-
 import javafx.util.Pair;
 
 public class Commands {
@@ -66,9 +64,11 @@ public class Commands {
 					location = source.getLocation();
 					
 				} else if (sender instanceof ConsoleCommandSender) {
+					@SuppressWarnings("unused")
 					ConsoleCommandSender source = (ConsoleCommandSender)sender;
 					
 				} else if (sender instanceof RemoteConsoleCommandSender) {
+					@SuppressWarnings("unused")
 					RemoteConsoleCommandSender source = (RemoteConsoleCommandSender)sender;
 				
 				} else {
@@ -81,8 +81,11 @@ public class Commands {
 				int x = Integer.MAX_VALUE;
 				int y = Integer.MAX_VALUE;
 				int z = Integer.MAX_VALUE;
+				@SuppressWarnings("unused")
 				int dx = Integer.MAX_VALUE;
+				@SuppressWarnings("unused")
 				int dy = Integer.MAX_VALUE;
+				@SuppressWarnings("unused")
 				int dz = Integer.MAX_VALUE;
 				
 				if (arg.indexOf("[") == 2) {
