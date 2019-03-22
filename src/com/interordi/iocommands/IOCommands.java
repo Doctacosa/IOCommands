@@ -3,6 +3,7 @@ package com.interordi.iocommands;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -424,6 +425,40 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("tips")) {
+			
+			//Only players can run this command
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("§cThis command can only be run by a player.");
+				return true;
+			}
+			
+			Player player = (Player)sender;
+			player.sendMessage("§aHere are some useful tips and features available only here!");
+			player.sendMessage(ChatColor.WHITE + "http://www.creeperslab.net/tips.php");
+			
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("rules")) {
+			
+			//Only players can run this command
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("§cThis command can only be run by a player.");
+				return true;
+			}
+			
+			Player player = (Player)sender;
+			player.sendMessage("§aWe have a few rules in place for the benefit of everyone.");
+			player.sendMessage("§61- Family friendly");
+			player.sendMessage("§62- No flying, running or x-ray mods");
+			player.sendMessage("§63- No lagging devices");
+			player.sendMessage("§64- No griefing");
+			player.sendMessage("§65- No player traps");
+			player.sendMessage("§66- Respect private property");
+			player.sendMessage("§67- Player safety");
+			player.sendMessage(ChatColor.WHITE + "http://www.creeperslab.net/rules.php");
+			
+			return true;
 		}
 		
 		return false;

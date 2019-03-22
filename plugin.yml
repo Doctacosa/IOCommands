@@ -46,3 +46,9 @@ commands:
   rocket:
     description: Send a player soaring in the air
     usage: /rocket TARGET STRENGTH
+  tips:
+    description: Get useful tips about the server
+    usage: /tips
+  rules:
+    description: Get the rules of the server
+    usage: /rules
