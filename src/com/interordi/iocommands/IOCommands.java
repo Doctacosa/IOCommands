@@ -382,6 +382,7 @@ public class IOCommands extends JavaPlugin {
 			Player target = null;
 			boolean fromPlayer = (sender instanceof Player || sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender);
 			int amount = 1;
+			int delay = 20;
 			
 			if (sender instanceof Player) {
 				Player user = (Player)sender;
@@ -403,9 +404,17 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			if (args.length >= 2) {
-				amount = Integer.parseInt(args[1]);
+				try {
+					amount = Integer.parseInt(args[1]);
+				} catch (NumberFormatException e) {}
 			}
-			
+
+			if (args.length >= 3) {
+				try {
+					delay = Integer.parseInt(args[2]);
+				} catch (NumberFormatException e) {}
+			}
+
 			if (target == null) {
 				sender.sendMessage("§cTarget not found!");
 				return true;
@@ -415,13 +424,13 @@ public class IOCommands extends JavaPlugin {
 				amount = 1;
 			
 			if (command.equals("shock"))
-				FunCommands.shock(target, amount, fromPlayer);
+				FunCommands.shock(target, amount, delay, fromPlayer);
 			else if (command.equals("rocket"))
-				FunCommands.rocket(target, amount, fromPlayer);
+				FunCommands.rocket(target, amount, delay, fromPlayer);
 			else if (command.equals("slap"))
-				FunCommands.slap(target, amount, fromPlayer, 1.0f);
+				FunCommands.slap(target, amount, delay, fromPlayer, 1.0f);
 			else if (command.equals("bslap"))
-				FunCommands.slap(target, amount, fromPlayer, 4.0f);
+				FunCommands.slap(target, amount, delay, fromPlayer, 4.0f);
 			
 			return true;
 

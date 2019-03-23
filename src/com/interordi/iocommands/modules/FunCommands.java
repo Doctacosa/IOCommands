@@ -10,7 +10,7 @@ import com.interordi.iocommands.IOCommands;
 
 public class FunCommands {
 
-	public static void shock(Player target, int amount, boolean fromPlayer) {
+	public static void shock(Player target, int amount, int delay, boolean fromPlayer) {
 		
 		//Actual action
 		Runnable task = new Runnable() {
@@ -22,7 +22,7 @@ public class FunCommands {
 		
 		//Pre-schedule all executions
 		for (int i = 0; i < amount; i++)
-			Bukkit.getScheduler().runTaskLater(IOCommands.instance, task, i * 20L);
+			Bukkit.getScheduler().runTaskLater(IOCommands.instance, task, i * delay);
 		
 		//Notify as appropriate
 		if (fromPlayer) {
@@ -35,7 +35,7 @@ public class FunCommands {
 	}
 
 
-	public static void rocket(Player target, int amount, boolean fromPlayer) {
+	public static void rocket(Player target, int amount, int delay, boolean fromPlayer) {
 		
 		target.setVelocity(new Vector(0, amount + 1.0, 0));
 		
@@ -47,7 +47,7 @@ public class FunCommands {
 	}
 
 
-	public static void slap(Player target, int amount, boolean fromPlayer, float intensity) {
+	public static void slap(Player target, int amount, int delay, boolean fromPlayer, float intensity) {
 		
 		//Actual action
 		Runnable task = new Runnable() {
@@ -63,7 +63,7 @@ public class FunCommands {
 		
 		//Pre-schedule all executions
 		for (int i = 0; i < amount; i++)
-			Bukkit.getScheduler().runTaskLater(IOCommands.instance, task, i * 20L);
+			Bukkit.getScheduler().runTaskLater(IOCommands.instance, task, i * delay);
 		
 		//Notify as appropriate
 		if (fromPlayer) {
