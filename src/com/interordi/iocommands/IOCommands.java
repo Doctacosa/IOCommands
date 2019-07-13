@@ -362,6 +362,8 @@ public class IOCommands extends JavaPlugin {
 			World w = target.getWorld();
 			target.teleport(w.getSpawnLocation());
 			
+			return true;
+			
 		} else if (cmd.getName().equalsIgnoreCase("kill")) {
 			
 			if (!(sender instanceof Player)) {
