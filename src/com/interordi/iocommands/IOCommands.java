@@ -118,7 +118,11 @@ public class IOCommands extends JavaPlugin {
 				return true;
 			}
 			
-			target.teleport(warp.location);
+			try {
+				target.teleport(warp.location);
+			} catch (java.lang.IllegalArgumentException e) {
+				sender.sendMessage("§cThe destination is currently not available.");
+			}
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("setwarp")) {
