@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
 Specification-Title: IOCommands
 Specification-Version: 1.0
-Class-Path: IOCommands/opencsv-4.2.jar
-Class-Path: IOCommands/commons-lang3-3.6.jar
+Class-Path: IOCommands/opencsv-4.2.jar IOCommands/commons-lang3-3.6.jar
