@@ -52,3 +52,12 @@ commands:
   rules:
     description: Get the rules of the server
     usage: /rules
+  help:
+    description: Get some basic help and information ont he server
+    usage: /help
+  map:
+    description: Get the link to the server maps
+    usage: /map
+  maps:
+    description: Get the link to the server maps
+    usage: /maps

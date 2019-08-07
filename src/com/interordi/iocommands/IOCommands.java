@@ -443,7 +443,14 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
 			sender.sendMessage("§aHere are some useful tips and features available only here!");
-			sender.sendMessage(ChatColor.WHITE + "http://www.creeperslab.net/tips.php");
+			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/tips.php");
+			
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("map") || cmd.getName().equalsIgnoreCase("maps")) {
+			
+			sender.sendMessage("§aThe live maps for all servers can be found here.");
+			sender.sendMessage(ChatColor.WHITE + "https://map.creeperslab.net/");
 			
 			return true;
 
@@ -457,10 +464,20 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage("§65- No player traps");
 			sender.sendMessage("§66- Respect private property");
 			sender.sendMessage("§67- Player safety");
-			sender.sendMessage(ChatColor.WHITE + "http://www.creeperslab.net/rules.php");
+			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/rules.php");
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("help")) {
+			
+			sender.sendMessage("§aHello! If you have any questions about the server, don't hesitate to ask, the community likes to help.");
+			sender.sendMessage("§rUseful commands:");
+			sender.sendMessage("§6§l/rules§r: A summary of our rules");
+			sender.sendMessage("§6§l/register§r: Access the registration instructions");
+			sender.sendMessage("§6§l/tips§r: Read on our gameplay changes and commands");
+			sender.sendMessage("§6§l/map§r: View the server maps");
+			
+			return true;
 		}
 		
 		return false;
