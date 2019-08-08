@@ -339,6 +339,61 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 		
+		} else if (cmd.getName().equalsIgnoreCase("timeplus")) {
+			
+			//Check if the user has permission to use this command
+			if (!sender.hasPermission("iocommands.time.set")) {
+				sender.sendMessage("§cYou are not allowed to use this command!");
+				return true;
+			}
+
+			World target = null;
+			long time = 0;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				target = user.getWorld();
+			}
+			
+			//Select the target of the command
+			if (args.length <= 1) {
+				sender.sendMessage("§cMissing parameter!");
+				return true;
+				
+			}
+			
+			target = Bukkit.getServer().getWorld(args[0]);
+			
+			if (target == null) {
+				sender.sendMessage("§cWorld not found!");
+				return true;
+			}
+			
+			String command = args[1];
+				
+			if (command.equalsIgnoreCase("lodge")) {
+				time = target.getTime();
+				
+				if (time < 6000 || time > 23000) {
+					time = (12 - 6) * 1000;
+					target.setTime(time);
+				}
+				
+			} else if (command.equalsIgnoreCase("talk")) {
+				long currentTime = target.getTime();
+				double hours = Math.floor(currentTime / 1000) + 6;
+				hours = hours % 24;
+				double minutes = Math.floor((currentTime - Math.floor(currentTime / 1000) * 1000) / 1000 * 60);
+
+				getServer().broadcastMessage(String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				
+			} else {
+				sender.sendMessage("§cInvalid command!");
+				return true;
+			}
+			
+			return true;
+		
 		} else if (cmd.getName().equalsIgnoreCase("spawn")) {
 			
 			Player target = null;
