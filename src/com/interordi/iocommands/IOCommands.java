@@ -16,13 +16,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.interordi.iocommands.modules.Warp;
 import com.interordi.iocommands.modules.Warps;
+import com.interordi.iocommands.modules.FlightManager;
+import com.interordi.iocommands.modules.FunCommands;
+import com.interordi.iocommands.modules.Homes;
+import com.interordi.iocommands.modules.Tutorial;
+
 import com.interordi.utilities.Commands;
 
 import javafx.util.Pair;
 
-import com.interordi.iocommands.modules.FlightManager;
-import com.interordi.iocommands.modules.FunCommands;
-import com.interordi.iocommands.modules.Homes;
 
 
 public class IOCommands extends JavaPlugin {
@@ -31,6 +33,7 @@ public class IOCommands extends JavaPlugin {
 
 	public Warps warps;
 	public Homes homes;
+	public Tutorial tutorial;
 	public FlightManager thisFlightManager;
 	public PlayerListener thisPlayerListener;
 
@@ -45,6 +48,7 @@ public class IOCommands extends JavaPlugin {
 		thisPlayerListener = new PlayerListener(this);
 		this.warps = new Warps(this);
 		this.homes = new Homes(this);
+		this.tutorial = new Tutorial(this);
 		thisFlightManager = new FlightManager(this);
 		
 		getLogger().info("IOCommands enabled");
@@ -521,8 +525,37 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			player.sendMessage("§aInformation on " + target.getName());
-			player.sendMessage("§aUUID: " + target.getUniqueId());
-			player.sendMessage("§aIP address: " + target.getAddress().getAddress());
+			player.sendMessage("§aUUID: §r" + target.getUniqueId());
+			player.sendMessage("§aIP address: §r" + target.getAddress().getAddress());
+			return true;
+		
+		} else if (cmd.getName().equalsIgnoreCase("tutorial")) {
+			
+			boolean exit = false;
+			if (args.length > 0) {
+				exit = args[0].equalsIgnoreCase("exit");
+			}
+			
+			Player player = null;
+			String playerName = "";
+			
+			if (exit) {
+				if (args.length > 1)
+					playerName = args[1];
+				else {
+					sender.sendMessage("§cMissing parameter: player name");
+					return true;
+				}
+				player = getServer().getPlayer(playerName);
+			} else {
+				if (!(sender instanceof Player))
+					return false;
+				
+				player = (Player)sender;
+			}
+			
+			tutorial.onCommand(player, exit);
+			
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
