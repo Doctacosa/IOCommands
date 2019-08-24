@@ -495,6 +495,36 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("whois")) {
+			
+			if (!(sender instanceof Player))
+				return false;
+			
+			Player player = (Player)sender;
+			if (!player.hasPermission("iocommands.whois")) {
+				player.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+			
+			String name = "";
+			if (args.length > 0) {
+				name = args[0];
+			} else {
+				player.sendMessage("§cMissing parameter: player name");
+				return true;
+			}
+			
+			Player target = Bukkit.getServer().getPlayer(name);
+			if (target == null) {
+				player.sendMessage("§cTarget not found!");
+				return true;
+			}
+			
+			player.sendMessage("§aInformation on " + target.getName());
+			player.sendMessage("§aUUID: " + target.getUniqueId());
+			player.sendMessage("§aIP address: " + target.getAddress().getAddress());
+			return true;
+		
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
 			sender.sendMessage("§aHere are some useful tips and features available only here!");
