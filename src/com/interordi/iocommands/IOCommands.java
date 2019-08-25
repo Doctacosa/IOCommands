@@ -540,6 +540,11 @@ public class IOCommands extends JavaPlugin {
 			String playerName = "";
 			
 			if (exit) {
+				if (!sender.hasPermission("iocommands.tutorial.exit")) {
+					sender.sendMessage("§cYou are not allowed to use this command.");
+					return true;
+				}
+
 				if (args.length > 1)
 					playerName = args[1];
 				else {
