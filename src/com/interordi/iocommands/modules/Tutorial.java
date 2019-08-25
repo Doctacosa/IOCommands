@@ -31,7 +31,7 @@ public class Tutorial {
 	
 	public void onCommand(Player player, boolean exit) {
 		
-		if (!player.getWorld().getName().equals("world_tasmantis")) {
+		if (!player.getWorld().getName().equals("world_cimmeria")) {
 			player.sendMessage("§aThe tutorial is in Cimmeria! Do /lobby and head there.");
 		}
 		
