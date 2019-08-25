@@ -31,7 +31,7 @@ public class Tutorial {
 	
 	public void onCommand(Player player, boolean exit) {
 		
-		if (!player.getWorld().getName().equals("world_cimmeria")) {
+		if (!player.getWorld().getName().equals("world_tasmantis")) {
 			player.sendMessage("§aThe tutorial is in Cimmeria! Do /lobby and head there.");
 		}
 		
@@ -50,6 +50,7 @@ public class Tutorial {
 		//Enter
 		locations.put(player.getUniqueId(), player.getLocation());
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "warp " + player.getName()  + " tutorial");
+		saveTutorial();
 	}
 	
 	
