@@ -37,7 +37,12 @@ public class Tutorial {
 		
 		//Exit
 		if (exit) {
-			player.teleport(locations.get(player.getUniqueId()));
+			Location loc = locations.get(player.getUniqueId());
+			if (loc == null) {
+				System.out.println("No destination found!");
+				return;
+			}
+			player.teleport(loc);
 			return;
 		}
 		
@@ -80,8 +85,8 @@ public class Tutorial {
 		for (String temp : cs) {
 			UUID uuid = UUID.fromString(temp);
 			String tempLoc = playersData.getString(temp);
-			String[] parts = tempLoc.split("|");
-			if (parts.length != 4)
+			String[] parts = tempLoc.split("\\|");
+			if (parts.length < 4)
 				continue;
 			
 			Location loc = new Location(
