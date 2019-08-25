@@ -70,3 +70,6 @@ commands:
   maps:
     description: Get the link to the server maps
     usage: /maps
+  kit:
+    description: Get information on how to acquire a kit
+    usage: /kit

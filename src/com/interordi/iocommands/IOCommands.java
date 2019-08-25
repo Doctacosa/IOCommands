@@ -596,6 +596,13 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage("§6§l/map§r: View the server maps");
 			
 			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("kit")) {
+			
+			sender.sendMessage("§aWant a starting kit of items?");
+			sender.sendMessage("§aGo to Cimmeria and try out the tutorial!");
+			
+			return true;
 		}
 		
 		return false;
