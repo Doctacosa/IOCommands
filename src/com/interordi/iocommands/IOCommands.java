@@ -19,6 +19,7 @@ import com.interordi.iocommands.modules.Warps;
 import com.interordi.iocommands.modules.FlightManager;
 import com.interordi.iocommands.modules.FunCommands;
 import com.interordi.iocommands.modules.Homes;
+import com.interordi.iocommands.modules.WorldSpawns;
 import com.interordi.iocommands.modules.Tutorial;
 
 import com.interordi.utilities.Commands;
@@ -33,6 +34,7 @@ public class IOCommands extends JavaPlugin {
 
 	public Warps warps;
 	public Homes homes;
+	public WorldSpawns worldSpawns;
 	public Tutorial tutorial;
 	public FlightManager thisFlightManager;
 	public PlayerListener thisPlayerListener;
@@ -48,6 +50,7 @@ public class IOCommands extends JavaPlugin {
 		thisPlayerListener = new PlayerListener(this);
 		this.warps = new Warps(this);
 		this.homes = new Homes(this);
+		this.worldSpawns = new WorldSpawns(this);
 		this.tutorial = new Tutorial(this);
 		thisFlightManager = new FlightManager(this);
 		
@@ -423,7 +426,11 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			World w = target.getWorld();
-			target.teleport(w.getSpawnLocation());
+			Location spawn = worldSpawns.getSpawn(w.getName());
+			if (spawn != null)
+				target.teleport(spawn);
+			else
+				target.teleport(w.getSpawnLocation());
 			
 			return true;
 			
@@ -443,6 +450,8 @@ public class IOCommands extends JavaPlugin {
 			
 			World w = user.getWorld();
 			w.setSpawnLocation(user.getLocation());
+			worldSpawns.setSpawn(user.getLocation());
+			user.sendMessage("§aWorld spawn set!");
 			
 			return true;
 			
