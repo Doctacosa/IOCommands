@@ -427,6 +427,25 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 			
+		} else if (cmd.getName().equalsIgnoreCase("setworldspawn")) {
+			
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("§cThis command must be run in-game!");
+				return true;
+			}
+			
+			Player user = (Player)sender;
+			//Check if the user has permission to use this command
+			if (!user.hasPermission("iocommands.setworldspawn")) {
+				user.sendMessage("§cYou are not allowed to use this command!");
+				return true;
+			}
+			
+			World w = user.getWorld();
+			w.setSpawnLocation(user.getLocation());
+			
+			return true;
+			
 		} else if (cmd.getName().equalsIgnoreCase("kill")) {
 			
 			if (!(sender instanceof Player)) {

@@ -28,6 +28,9 @@ commands:
   spawn:
     description: Return to the current world's spawn point
     usage: /spawn
+  setworldspawn:
+    description: Set the current world's spawn point
+    usage: /setworldspawn
   time:
     description: Get or set the time of a world
     usage: /time LOCATION TIME
