@@ -559,16 +559,19 @@ public class IOCommands extends JavaPlugin {
 		
 		} else if (cmd.getName().equalsIgnoreCase("tutorial")) {
 			
+			boolean entry = false;
 			boolean exit = false;
 			if (args.length > 0) {
 				exit = args[0].equalsIgnoreCase("exit");
+				entry = args[0].equalsIgnoreCase("entry");
 			}
 			
 			Player player = null;
 			String playerName = "";
 			
-			if (exit) {
-				if (!sender.hasPermission("iocommands.tutorial.exit")) {
+			if (entry || exit) {
+				if ((entry && !sender.hasPermission("iocommands.tutorial.entry")) ||
+					(exit && !sender.hasPermission("iocommands.tutorial.exit"))) {
 					sender.sendMessage("§cYou are not allowed to use this command.");
 					return true;
 				}
