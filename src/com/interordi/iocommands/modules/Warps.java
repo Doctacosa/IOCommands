@@ -83,8 +83,12 @@ public class Warps {
 			Location pos = entry.getValue().location;
 
 			//Skip unknown worlds
-			if (pos.getWorld() == null)
-				continue;
+			try {
+				if (pos.getWorld() == null)
+					continue;
+			} catch (IllegalArgumentException e) {
+				return;
+			}
 
 			String[] line = {
 					entry.getKey().toString().toLowerCase(),
