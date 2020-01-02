@@ -87,6 +87,11 @@ public class Warps {
 				if (pos.getWorld() == null)
 					continue;
 			} catch (IllegalArgumentException e) {
+				try {
+					writer.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				return;
 			}
 
