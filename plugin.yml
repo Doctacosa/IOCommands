@@ -76,3 +76,12 @@ commands:
   kit:
     description: Get information on how to acquire a kit
     usage: /kit
+  rimshot:
+    description: Ba-dum-tsch!
+    usage: /rimshot
+    permission: iocommands.troll
+
+permissions:
+  iocommands.troll:
+    description: Allows to troll people
+    default: op

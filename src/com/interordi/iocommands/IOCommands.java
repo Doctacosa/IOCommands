@@ -594,6 +594,14 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 		
+		} else if (cmd.getName().equalsIgnoreCase("rimshot")) {
+			
+			for (Player player: Bukkit.getOnlinePlayers()) {
+				player.playSound(player.getLocation(), "rimshot", 1.0f, 1.0f);
+				player.sendMessage("Ba-dum-tsch!");
+			}
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
 			sender.sendMessage("§aHere are some useful tips and features available only here!");
