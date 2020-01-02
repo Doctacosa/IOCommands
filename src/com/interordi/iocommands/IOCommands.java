@@ -182,7 +182,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.home")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				player.sendMessage("§aTo set your home, stay in a bed!");
 				return true;
 			}
 			
