@@ -620,12 +620,13 @@ public class IOCommands extends JavaPlugin {
 			
 			sender.sendMessage("§aWe have a few rules in place for the benefit of everyone.");
 			sender.sendMessage("§61- Family friendly");
-			sender.sendMessage("§62- No flying, running or x-ray mods");
-			sender.sendMessage("§63- No lagging devices");
-			sender.sendMessage("§64- No griefing");
-			sender.sendMessage("§65- No player traps");
-			sender.sendMessage("§66- Respect private property");
-			sender.sendMessage("§67- Player safety");
+			sender.sendMessage("§62- No discussions on religion and politics");
+			sender.sendMessage("§63- No flying, running or x-ray mods");
+			sender.sendMessage("§64- No lagging devices");
+			sender.sendMessage("§65- No griefing");
+			sender.sendMessage("§66- No player traps");
+			sender.sendMessage("§67- Respect private property");
+			sender.sendMessage("§68- Player safety");
 			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/rules.php");
 			
 			return true;
