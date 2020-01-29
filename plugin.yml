@@ -80,6 +80,9 @@ commands:
     description: Ba-dum-tsch!
     usage: /rimshot
     permission: iocommands.troll
+  broadcast:
+    description: Send a global message on all channels
+    usage: /broadcast message
 
 permissions:
   iocommands.troll:

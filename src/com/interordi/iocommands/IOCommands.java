@@ -648,6 +648,18 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage("§aGo to Cimmeria and try out the tutorial!");
 			
 			return true;
+		
+		} else if (cmd.getName().equalsIgnoreCase("broadcast")) {
+			
+			if (!sender.hasPermission("iocommands.broadcast")) {
+				sender.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+			
+			String command = strJoin(args, " ");
+			Bukkit.getServer().getLogger().info("|IOBRD|" + command);
+			
+			return true;
 		}
 		
 		return false;
@@ -682,4 +694,25 @@ public class IOCommands extends JavaPlugin {
 	}
 	
 	
+	
+	
+	public static String strJoin(String[] aArr, String sSep) {
+		return strJoin(aArr, sSep, 0);
+	}
+	
+	
+	public static String strJoin(String[] aArr, String sSep, int startPos) {
+		if (aArr.length <= startPos)
+			return "";
+		
+		StringBuilder sbStr = new StringBuilder();
+		for (int i = startPos, il = aArr.length; i < il; i++) {
+			if (i > startPos)
+				sbStr.append(sSep);
+			sbStr.append(aArr[i]);
+		}
+		return sbStr.toString();
+	}
+
+
 }
