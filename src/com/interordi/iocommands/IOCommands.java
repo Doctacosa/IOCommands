@@ -98,7 +98,7 @@ public class IOCommands extends JavaPlugin {
 				Player player = (Player)sender;
 				target = player;
 				if (!sender.hasPermission("iocommands.warp")) {
-					player.sendMessage("§cYou are not allowed to use this command.");
+					player.sendMessage("Â§cYou are not allowed to use this command.");
 					return true;
 				}
 			}
@@ -110,25 +110,25 @@ public class IOCommands extends JavaPlugin {
 			} else if (args.length == 1) {
 				destination = args[0];
 			} else {
-				sender.sendMessage("§cMissing parameter: destination");
+				sender.sendMessage("Â§cMissing parameter: destination");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget player not found!");
+				sender.sendMessage("Â§cTarget player not found!");
 				return true;
 			}
 			
 			Warp warp = warps.getWarp(destination);
 			if (warp == null) {
-				sender.sendMessage("§cDestination not found!");
+				sender.sendMessage("Â§cDestination not found!");
 				return true;
 			}
 			
 			try {
 				target.teleport(warp.location);
 			} catch (java.lang.IllegalArgumentException e) {
-				sender.sendMessage("§cThe destination is currently not available.");
+				sender.sendMessage("Â§cThe destination is currently not available.");
 			}
 			return true;
 
@@ -139,7 +139,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.setwarp")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				player.sendMessage("Â§cYou are not allowed to use this command.");
 				return true;
 			}
 			
@@ -147,12 +147,12 @@ public class IOCommands extends JavaPlugin {
 			if (args.length > 0) {
 				name = args[0];
 			} else {
-				player.sendMessage("§cMissing parameter: name");
+				player.sendMessage("Â§cMissing parameter: name");
 				return true;
 			}
 			
 			warps.setWarp(player, name, player.getLocation());
-			player.sendMessage("§aWarp added!");
+			player.sendMessage("Â§aWarp added!");
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("home")) {
@@ -162,13 +162,13 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.home")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				player.sendMessage("Â§cYou are not allowed to use this command.");
 				return true;
 			}
 			
 			Location home = homes.getHome(player);
 			if (home == null) {
-				player.sendMessage("§cHome not set!");
+				player.sendMessage("Â§cHome not set!");
 				return true;
 			}
 			
@@ -182,12 +182,12 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.home")) {
-				player.sendMessage("§aTo set your home, stay in a bed!");
+				player.sendMessage("Â§aTo set your home, stay in a bed!");
 				return true;
 			}
 			
 			homes.setHome(player, player.getLocation());
-			player.sendMessage("§aHome set!");
+			player.sendMessage("Â§aHome set!");
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("flight")) {
@@ -199,7 +199,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.flight")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -210,7 +210,7 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage("Â§cTarget not found!");
 				return true;
 			}
 			
@@ -240,7 +240,7 @@ public class IOCommands extends JavaPlugin {
 				Player user = (Player)sender;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.keepinv")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 				target = user.getWorld();
@@ -249,7 +249,7 @@ public class IOCommands extends JavaPlugin {
 			//Select the target of the command
 			if (args.length == 1) {
 				if (target == null) {
-					sender.sendMessage("§cA world must be specified!");
+					sender.sendMessage("Â§cA world must be specified!");
 					return true;
 				}
 				action = args[0].equals("true");
@@ -257,17 +257,17 @@ public class IOCommands extends JavaPlugin {
 				target = Bukkit.getServer().getWorld(args[0]);
 				action = args[1].equals("true");
 			} else {
-				sender.sendMessage("§cA world must be specified!");
+				sender.sendMessage("Â§cA world must be specified!");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage("Â§cWorld not found!");
 				return true;
 			}
 			
 			target.setGameRule(GameRule.KEEP_INVENTORY, action);
-			sender.sendMessage("§aThe keepInventory rule for §f" + target.getName() + "§a is now §f" + action);
+			sender.sendMessage("Â§aThe keepInventory rule for Â§f" + target.getName() + "Â§a is now Â§f" + action);
 			
 			return true;
 		
@@ -281,7 +281,7 @@ public class IOCommands extends JavaPlugin {
 				Player user = (Player)sender;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.time")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 				target = user.getWorld();
@@ -302,7 +302,7 @@ public class IOCommands extends JavaPlugin {
 				
 			} else if (args.length == 2) {
 				if (!sender.hasPermission("iocommands.time.set")) {
-					sender.sendMessage("§cYou are not allowed to use this command!");
+					sender.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 				
@@ -314,17 +314,17 @@ public class IOCommands extends JavaPlugin {
 					time = extractTime(args, 1);
 					set = true;
 				} catch (NumberFormatException e) {
-					sender.sendMessage("§cInvalid time value: " + args[1]);
+					sender.sendMessage("Â§cInvalid time value: " + args[1]);
 					return true;
 				}
 				
 			} else {
-				sender.sendMessage("§cInvalid command!");
+				sender.sendMessage("Â§cInvalid command!");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage("Â§cWorld not found!");
 				return true;
 			}
 			
@@ -339,9 +339,9 @@ public class IOCommands extends JavaPlugin {
 			double minutes = Math.floor((currentTime - Math.floor(currentTime / 1000) * 1000) / 1000 * 60);
 
 			if (set) {
-				sender.sendMessage("§eTime for world " + target.getName() + " set to: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				sender.sendMessage("Â§eTime for world " + target.getName() + " set to: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 			} else {
-				sender.sendMessage("§eTime: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				sender.sendMessage("Â§eTime: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 			}
 			
 			return true;
@@ -350,7 +350,7 @@ public class IOCommands extends JavaPlugin {
 			
 			//Check if the user has permission to use this command
 			if (!sender.hasPermission("iocommands.time.set")) {
-				sender.sendMessage("§cYou are not allowed to use this command!");
+				sender.sendMessage("Â§cYou are not allowed to use this command!");
 				return true;
 			}
 
@@ -364,7 +364,7 @@ public class IOCommands extends JavaPlugin {
 			
 			//Select the target of the command
 			if (args.length <= 1) {
-				sender.sendMessage("§cMissing parameter!");
+				sender.sendMessage("Â§cMissing parameter!");
 				return true;
 				
 			}
@@ -372,7 +372,7 @@ public class IOCommands extends JavaPlugin {
 			target = Bukkit.getServer().getWorld(args[0]);
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage("Â§cWorld not found!");
 				return true;
 			}
 			
@@ -395,7 +395,7 @@ public class IOCommands extends JavaPlugin {
 				getServer().broadcastMessage(String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 				
 			} else {
-				sender.sendMessage("§cInvalid command!");
+				sender.sendMessage("Â§cInvalid command!");
 				return true;
 			}
 			
@@ -410,7 +410,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.warp")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -421,7 +421,7 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage("Â§cTarget not found!");
 				return true;
 			}
 			
@@ -437,28 +437,28 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("setworldspawn")) {
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cThis command must be run in-game!");
+				sender.sendMessage("Â§cThis command must be run in-game!");
 				return true;
 			}
 			
 			Player user = (Player)sender;
 			//Check if the user has permission to use this command
 			if (!user.hasPermission("iocommands.setworldspawn")) {
-				user.sendMessage("§cYou are not allowed to use this command!");
+				user.sendMessage("Â§cYou are not allowed to use this command!");
 				return true;
 			}
 			
 			World w = user.getWorld();
 			w.setSpawnLocation(user.getLocation());
 			worldSpawns.setSpawn(user.getLocation());
-			user.sendMessage("§aWorld spawn set!");
+			user.sendMessage("Â§aWorld spawn set!");
 			
 			return true;
 			
 		} else if (cmd.getName().equalsIgnoreCase("kill")) {
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cOnly players can run this command!");
+				sender.sendMessage("Â§cOnly players can run this command!");
 				return true;
 			}
 			
@@ -482,7 +482,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands." + command)) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage("Â§cYou are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -509,7 +509,7 @@ public class IOCommands extends JavaPlugin {
 			}
 
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage("Â§cTarget not found!");
 				return true;
 			}
 			
@@ -534,7 +534,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.whois")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				player.sendMessage("Â§cYou are not allowed to use this command.");
 				return true;
 			}
 			
@@ -542,19 +542,19 @@ public class IOCommands extends JavaPlugin {
 			if (args.length > 0) {
 				name = args[0];
 			} else {
-				player.sendMessage("§cMissing parameter: player name");
+				player.sendMessage("Â§cMissing parameter: player name");
 				return true;
 			}
 			
 			Player target = Bukkit.getServer().getPlayer(name);
 			if (target == null) {
-				player.sendMessage("§cTarget not found!");
+				player.sendMessage("Â§cTarget not found!");
 				return true;
 			}
 			
-			player.sendMessage("§aInformation on " + target.getName());
-			player.sendMessage("§aUUID: §r" + target.getUniqueId());
-			player.sendMessage("§aIP address: §r" + target.getAddress().getAddress());
+			player.sendMessage("Â§aInformation on " + target.getName());
+			player.sendMessage("Â§aUUID: Â§r" + target.getUniqueId());
+			player.sendMessage("Â§aIP address: Â§r" + target.getAddress().getAddress());
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("tutorial")) {
@@ -572,14 +572,14 @@ public class IOCommands extends JavaPlugin {
 			if (entry || exit) {
 				if ((entry && !sender.hasPermission("iocommands.tutorial.entry")) ||
 					(exit && !sender.hasPermission("iocommands.tutorial.exit"))) {
-					sender.sendMessage("§cYou are not allowed to use this command.");
+					sender.sendMessage("Â§cYou are not allowed to use this command.");
 					return true;
 				}
 
 				if (args.length > 1)
 					playerName = args[1];
 				else {
-					sender.sendMessage("§cMissing parameter: player name");
+					sender.sendMessage("Â§cMissing parameter: player name");
 					return true;
 				}
 				player = getServer().getPlayer(playerName);
@@ -593,7 +593,7 @@ public class IOCommands extends JavaPlugin {
 			tutorial.onCommand(player, exit);
 			
 			return true;
-		
+
 		} else if (cmd.getName().equalsIgnoreCase("rimshot")) {
 			
 			for (Player player: Bukkit.getOnlinePlayers()) {
@@ -604,55 +604,55 @@ public class IOCommands extends JavaPlugin {
 
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
-			sender.sendMessage("§aHere are some useful tips and features available only here!");
+			sender.sendMessage("Â§aHere are some useful tips and features available only here!");
 			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/tips.php");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("map") || cmd.getName().equalsIgnoreCase("maps")) {
 			
-			sender.sendMessage("§aThe live maps for all servers can be found here.");
+			sender.sendMessage("Â§aThe live maps for all servers can be found here.");
 			sender.sendMessage(ChatColor.WHITE + "https://map.creeperslab.net/");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("rules")) {
 			
-			sender.sendMessage("§aWe have a few rules in place for the benefit of everyone.");
-			sender.sendMessage("§61- Family friendly");
-			sender.sendMessage("§62- No discussions on religion and politics");
-			sender.sendMessage("§63- No flying, running or x-ray mods");
-			sender.sendMessage("§64- No lagging devices");
-			sender.sendMessage("§65- No griefing");
-			sender.sendMessage("§66- No player traps");
-			sender.sendMessage("§67- Respect private property");
-			sender.sendMessage("§68- Player safety");
+			sender.sendMessage("Â§aWe have a few rules in place for the benefit of everyone.");
+			sender.sendMessage("Â§61- Family friendly");
+			sender.sendMessage("Â§62- No discussions on religion and politics");
+			sender.sendMessage("Â§63- No flying, running or x-ray mods");
+			sender.sendMessage("Â§64- No lagging devices");
+			sender.sendMessage("Â§65- No griefing");
+			sender.sendMessage("Â§66- No player traps");
+			sender.sendMessage("Â§67- Respect private property");
+			sender.sendMessage("Â§68- Player safety");
 			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/rules.php");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("help")) {
 			
-			sender.sendMessage("§aHello! If you have any questions about the server, don't hesitate to ask, the community likes to help.");
-			sender.sendMessage("§rUseful commands:");
-			sender.sendMessage("§6§l/rules§r: A summary of our rules");
-			sender.sendMessage("§6§l/register§r: Access the registration instructions");
-			sender.sendMessage("§6§l/tips§r: Read on our gameplay changes and commands");
-			sender.sendMessage("§6§l/map§r: View the server maps");
+			sender.sendMessage("Â§aHello! If you have any questions about the server, don't hesitate to ask, the community likes to help.");
+			sender.sendMessage("Â§rUseful commands:");
+			sender.sendMessage("Â§6Â§l/rulesÂ§r: A summary of our rules");
+			sender.sendMessage("Â§6Â§l/registerÂ§r: Access the registration instructions");
+			sender.sendMessage("Â§6Â§l/tipsÂ§r: Read on our gameplay changes and commands");
+			sender.sendMessage("Â§6Â§l/mapÂ§r: View the server maps");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("kit")) {
 			
-			sender.sendMessage("§aWant a starting kit of items?");
-			sender.sendMessage("§aGo to Cimmeria and try out the tutorial!");
+			sender.sendMessage("Â§aWant a starting kit of items?");
+			sender.sendMessage("Â§aGo to Cimmeria and try out the tutorial!");
 			
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("broadcast")) {
 			
 			if (!sender.hasPermission("iocommands.broadcast")) {
-				sender.sendMessage("§cYou are not allowed to use this command.");
+				sender.sendMessage("Â§cYou are not allowed to use this command.");
 				return true;
 			}
 			
