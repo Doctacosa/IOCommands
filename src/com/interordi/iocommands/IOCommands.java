@@ -594,6 +594,18 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("profile")) {
+
+			if (!(sender instanceof Player))
+				return false;
+		
+			Player player = (Player)sender;
+
+			sender.sendMessage("§aView your web profile to see your progress!");
+			sender.sendMessage(ChatColor.WHITE + "https://www.interordi.com/mboard/mc_profile.php?username=" + player.getDisplayName());
+
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("rimshot")) {
 			
 			for (Player player: Bukkit.getOnlinePlayers()) {
