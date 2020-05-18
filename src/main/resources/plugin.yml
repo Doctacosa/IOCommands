@@ -1,0 +1,93 @@
+name: IOCommands
+main: com.interordi.iocommands.IOCommands
+version: 1.0
+api-version: 1.13
+
+commands:
+  home:
+    description: Go to the user's set home
+    usage: /home
+  sethome:
+    description: Set the current position as the user's home
+    usage: /sethome
+  warp:
+    description: Teleport a user to the named warp
+    usage: /warp DESTINATION
+  setwarp:
+    description: Create a warp at the user's current position
+    usage: /setwarp NAME
+  warps:
+    description: Get a list of existing warps
+    usage: /warps
+  flight:
+    description: Enable and disable flight mode, if allowed.
+    usage: /flight
+  keepinv:
+    description: Enable and disable the keepInventory flag for the given world
+    usage: /keepinv WORLD
+  spawn:
+    description: Return to the current world's spawn point
+    usage: /spawn
+  setworldspawn:
+    description: Set the current world's spawn point
+    usage: /setworldspawn
+  time:
+    description: Get or set the time of a world
+    usage: /time LOCATION TIME
+  timeplus:
+    description: Special time methods for map creators
+    usage: /time COMMAND
+  kill:
+    description: Off yourself to return to your spawn point
+    usage: /kill
+  shock:
+    description: Send a shocking message to a player
+    usage: /shock TARGET AMOUNT
+  slap:
+    description: Slap a player (they probably deserved it)
+    usage: /slap TARGET AMOUNT
+  bslap:
+    description: Slap a player hard (they definitely deserved it)
+    usage: /bslap TARGET AMOUNT
+  rocket:
+    description: Send a player soaring in the air
+    usage: /rocket TARGET STRENGTH
+  whois:
+    description: Get some information on a player
+    usage: /whois TARGET
+  tutorial:
+    description: Visit the in-game tutorial
+    usage: /tutorial
+  tips:
+    description: Get useful tips about the server
+    usage: /tips
+  rules:
+    description: Get the rules of the server
+    usage: /rules
+  help:
+    description: Get some basic help and information ont he server
+    usage: /help
+  map:
+    description: Get the link to the server maps
+    usage: /map
+  maps:
+    description: Get the link to the server maps
+    usage: /maps
+  kit:
+    description: Get information on how to acquire a kit
+    usage: /kit
+  profile:
+    description: Get a direct link to your web profile
+    usage: /profile
+  rimshot:
+    description: Ba-dum-tsch!
+    usage: /rimshot
+    permission: iocommands.troll
+  broadcast:
+    description: Send a global message on all channels
+    usage: /broadcast message
+
+permissions:
+  iocommands.troll:
+    description: Allows to troll people
+    default: op
