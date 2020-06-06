@@ -1,5 +1,6 @@
 package com.interordi.iocommands;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,6 +14,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.interordi.iocommands.modules.Warp;
 import com.interordi.iocommands.modules.Warps;
@@ -612,6 +615,44 @@ public class IOCommands extends JavaPlugin {
 				player.playSound(player.getLocation(), "rimshot", 1.0f, 1.0f);
 				player.sendMessage("Ba-dum-tsch!");
 			}
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("warning") || cmd.getName().equalsIgnoreCase("w")) {
+			
+			if (!sender.hasPermission("iocommands.warning")) {
+				sender.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+
+			Player target = null;
+			String playerName = "";
+
+			if (args.length >= 1)
+				playerName = args[0];
+			else {
+				sender.sendMessage("§cMissing parameter: player name");
+				return true;
+			}
+			target = getServer().getPlayer(playerName);
+
+			if (target == null) {
+				sender.sendMessage("§cTarget not found: " + playerName);
+				return true;
+			}
+			
+			String message = "§cWARNING: §f";
+			if (args.length > 1) {
+				message += strJoin(Arrays.copyOfRange(args, 1, args.length), " ");
+			} else
+				message += "No griefing will be tolerated. Griefing is breaking or taking anything that belongs to someone else, or adding to a structure that isn't yours, without permission.";
+
+			target.sendMessage(message);
+			target.sendTitle("§c§lWARNING", "§6" + playerName + ", see the chat now.", 10, 100, 10);
+			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30 * 20, 2), false);
+			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 30 * 20, 2), false);
+
+			//TODO: Post to Discord
+
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
