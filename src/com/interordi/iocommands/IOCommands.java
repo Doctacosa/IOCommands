@@ -640,18 +640,19 @@ public class IOCommands extends JavaPlugin {
 				return true;
 			}
 			
-			String message = "§cWARNING: §f";
+			String message = "";
 			if (args.length > 1) {
 				message += strJoin(Arrays.copyOfRange(args, 1, args.length), " ");
 			} else
 				message += "No griefing will be tolerated. Griefing is breaking or taking anything that belongs to someone else, or adding to a structure that isn't yours, without permission.";
 
-			target.sendMessage(message);
+			target.sendMessage("§cWARNING: §f" + message);
 			target.sendTitle("§c§lWARNING", "§6" + playerName + ", see the chat now.", 10, 100, 10);
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30 * 20, 2), false);
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 30 * 20, 2), false);
 
-			//TODO: Post to Discord
+			//Notify staff
+			Bukkit.getServer().getLogger().info("|IOSTAFF|" + playerName + " was warned: " + message);
 
 			return true;
 
