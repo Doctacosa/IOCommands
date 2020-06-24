@@ -18,18 +18,15 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import javafx.util.Pair;
-
 public class Commands {
 	
 	//Given a command, determine the potential targets by analyzing selectors
-	public static Pair< Integer, List< String > > findTargets(Server server, CommandSender sender, Command cmd, String label, String[] args) {
+	public static CommandTargets findTargets(Server server, CommandSender sender, Command cmd, String label, String[] args) {
 		
 		//TODO: Clean fail on parse error
 		
-		List< String > targets = new ArrayList< String >();
-		
-		int position = -1;
+		CommandTargets cmdTargets = new CommandTargets();
+
 		boolean sort = false;
 		boolean random = false;
 		
@@ -39,19 +36,19 @@ public class Commands {
 			int limit = 1;
 			
 			if (arg.startsWith("@p")) {
-				position = i;
+				cmdTargets.position = i;
 				limit = 1;
 				sort = true;
 			} else if (arg.startsWith("@r")) {
-				position = i;
+				cmdTargets.position = i;
 				limit = 1;
 				random = true;
 			} else if (arg.startsWith("@a")) {
-				position = i;
+				cmdTargets.position = i;
 				limit = 0;
 			}
 			
-			if (position != -1) {
+			if (cmdTargets.position != -1) {
 				//Selector detected, process it
 				
 				Location location = null;
@@ -194,10 +191,10 @@ public class Commands {
 					//Include players that match all conditions
 					if (distance >= minDistance &&
 						distance <= maxDistance) {
-						targets.add(player.getDisplayName());
+							cmdTargets.targets.add(player.getDisplayName());
 						
 						//Stop as soon as we reach the number of wanted targets
-						if (limit > 0 && targets.size() >= limit && !random)
+						if (limit > 0 && cmdTargets.targets.size() >= limit && !random)
 							break;
 					}
 				}
@@ -206,14 +203,14 @@ public class Commands {
 			}
 
 			if (random) {
-				Collections.shuffle(targets);
-				targets = targets.subList(0, limit);
+				Collections.shuffle(cmdTargets.targets);
+				cmdTargets.targets = cmdTargets.targets.subList(0, limit);
 			}
 			
 			i++;
 		}
 		
-		return new Pair< Integer, List< String > >(position, targets);
+		return cmdTargets;
 	}
 
 }

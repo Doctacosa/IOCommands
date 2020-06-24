@@ -27,10 +27,6 @@ import com.interordi.iocommands.modules.Tutorial;
 
 import com.interordi.utilities.Commands;
 
-import javafx.util.Pair;
-
-
-
 public class IOCommands extends JavaPlugin {
 
 	public static IOCommands instance;
@@ -70,14 +66,13 @@ public class IOCommands extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		//Get the list of potential targets if a selector was used
-		Pair< Integer, List< String > > results = Commands.findTargets(Bukkit.getServer(), sender, cmd, label, args);
+		CommandTargets results = Commands.findTargets(Bukkit.getServer(), sender, cmd, label, args);
 		
-		int position = results.getKey();
 		boolean result = false;
-		if (position != -1) {
+		if (results.position != -1) {
 			//Run the command for each target identified by the selector
-			for (String target : results.getValue()) {
-				args[position] = target;
+			for (String target : results.targets) {
+				args[results.position] = target;
 				
 				result = runCommand(sender, cmd, label, args);
 			}
