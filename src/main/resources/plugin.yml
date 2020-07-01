@@ -86,6 +86,9 @@ commands:
   broadcast:
     description: Send a global message on all channels
     usage: /broadcast message
+  switch:
+    description: Move a player to the specified server
+    usage: /switch server player
   warning:
     description: Warn a user about the rules
     usage: /warning user message

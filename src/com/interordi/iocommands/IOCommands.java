@@ -1,5 +1,8 @@
 package com.interordi.iocommands;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +40,8 @@ public class IOCommands extends JavaPlugin {
 	public Tutorial tutorial;
 	public FlightManager thisFlightManager;
 	public PlayerListener thisPlayerListener;
+	
+	private boolean bungeeInit = false;
 
 	
 	public void onEnable() {
@@ -708,6 +713,49 @@ public class IOCommands extends JavaPlugin {
 			String command = strJoin(args, " ");
 			Bukkit.getServer().getLogger().info("|IOBRD|" + command);
 			
+			return true;
+		
+		} else if (cmd.getName().equalsIgnoreCase("switch")) {
+
+			if (!sender.hasPermission("iocommands.switch")) {
+				sender.sendMessage("§cYou are not allowed to use this command.");
+				return true;
+			}
+
+			Player target = null;
+			String destination = "";
+
+			if (args.length >= 2) {
+				destination = args[0];
+				target = getServer().getPlayer(args[1]);
+			} else if (args.length == 1) {
+				if (!(sender instanceof Player))
+					return false;
+
+				destination = args[0];
+				target = (Player)sender;
+			} else {
+				sender.sendMessage("§cMissing parameter: destination server");
+				return true;
+			}
+
+
+			//Send the world Switch message to Bungee
+			ByteArrayOutputStream b = new ByteArrayOutputStream();
+			DataOutputStream out = new DataOutputStream(b);
+			try {
+				out.writeUTF("Connect");
+				out.writeUTF(destination);
+			} catch (IOException e) {
+			}
+
+			if (!bungeeInit) {
+				this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+				bungeeInit = true;
+			}
+
+			target.sendPluginMessage(this, "BungeeCord", b.toByteArray());
+
 			return true;
 		}
 		
