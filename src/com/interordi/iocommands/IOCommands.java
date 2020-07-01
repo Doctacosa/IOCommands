@@ -754,6 +754,8 @@ public class IOCommands extends JavaPlugin {
 				bungeeInit = true;
 			}
 
+			//Save players so their inventory and metadata is up to date
+			getServer().savePlayers();
 			target.sendPluginMessage(this, "BungeeCord", b.toByteArray());
 
 			return true;
