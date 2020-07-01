@@ -1,10 +1,10 @@
 package com.interordi.iocommands;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+//import java.io.ByteArrayOutputStream;
+//import java.io.DataOutputStream;
+//import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+//import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -41,7 +41,7 @@ public class IOCommands extends JavaPlugin {
 	public FlightManager thisFlightManager;
 	public PlayerListener thisPlayerListener;
 	
-	private boolean bungeeInit = false;
+	//private boolean bungeeInit = false;
 
 	
 	public void onEnable() {
@@ -715,6 +715,7 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 		
+		/*
 		} else if (cmd.getName().equalsIgnoreCase("switch")) {
 
 			if (!sender.hasPermission("iocommands.switch")) {
@@ -759,6 +760,7 @@ public class IOCommands extends JavaPlugin {
 			target.sendPluginMessage(this, "BungeeCord", b.toByteArray());
 
 			return true;
+		*/
 		}
 		
 		return false;
