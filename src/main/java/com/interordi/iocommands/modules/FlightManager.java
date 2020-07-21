@@ -48,13 +48,13 @@ public class FlightManager
 		if (newStatus != curStatus) {
 			if (newStatus) {
 				if (source != null && source.getUniqueId() != player.getUniqueId())
-					source.sendMessage("§b" + player.getDisplayName() + " can now fly!");
-				player.sendMessage("§bYou can now fly!");
+					source.sendMessage("Â§b" + player.getDisplayName() + " can now fly!");
+				player.sendMessage("Â§bYou can now fly!");
 			}
 			else {
 				if (source != null && source.getUniqueId() != player.getUniqueId())
-					source.sendMessage("§b" + player.getDisplayName() + " can no longer fly!");
-				player.sendMessage("§bYou can no longer fly!");
+					source.sendMessage("Â§b" + player.getDisplayName() + " can no longer fly!");
+				player.sendMessage("Â§bYou can no longer fly!");
 			}
 		}
 		

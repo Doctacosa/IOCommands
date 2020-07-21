@@ -32,7 +32,7 @@ public class Tutorial {
 	public void onCommand(Player player, boolean exit) {
 		
 		if (!player.getWorld().getName().equals("world_cimmeria")) {
-			player.sendMessage("§aThe tutorial is in Cimmeria! Do /lobby and head there.");
+			player.sendMessage("Â§aThe tutorial is in Cimmeria! Do /lobby and head there.");
 			return;
 		}
 		
@@ -49,7 +49,7 @@ public class Tutorial {
 		
 		//Check
 		if (locations.containsKey(player.getUniqueId())) {
-			player.sendMessage("§aYou have already gone through the tutorial!");
+			player.sendMessage("Â§aYou have already gone through the tutorial!");
 			return;
 		}
 		

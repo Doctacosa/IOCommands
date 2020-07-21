@@ -27,9 +27,9 @@ public class FunCommands {
 		//Notify as appropriate
 		if (fromPlayer) {
 			if (amount > 1)
-				Bukkit.broadcastMessage("ง6" + target.getDisplayName() + " is being shocked " + amount + " times!");
+				Bukkit.broadcastMessage("ยง6" + target.getDisplayName() + " is being shocked " + amount + " times!");
 			else
-				Bukkit.broadcastMessage("ง6" + target.getDisplayName() + " was shocked!");
+				Bukkit.broadcastMessage("ยง6" + target.getDisplayName() + " was shocked!");
 		}
 		
 	}
@@ -41,7 +41,7 @@ public class FunCommands {
 		
 		//Notify as appropriate
 		if (fromPlayer) {
-			Bukkit.broadcastMessage("ง6" + target.getDisplayName() + " is heading for the skies!");
+			Bukkit.broadcastMessage("ยง6" + target.getDisplayName() + " is heading for the skies!");
 		}
 		
 	}
@@ -68,9 +68,9 @@ public class FunCommands {
 		//Notify as appropriate
 		if (fromPlayer) {
 			if (amount > 1)
-				Bukkit.broadcastMessage("ง6" + target.getDisplayName() + " is being slapped " + amount + " times!");
+				Bukkit.broadcastMessage("ยง6" + target.getDisplayName() + " is being slapped " + amount + " times!");
 			else
-				Bukkit.broadcastMessage("ง6" + target.getDisplayName() + " was slapped!");
+				Bukkit.broadcastMessage("ยง6" + target.getDisplayName() + " was slapped!");
 		}
 		
 	}
