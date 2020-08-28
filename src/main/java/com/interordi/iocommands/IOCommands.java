@@ -101,7 +101,7 @@ public class IOCommands extends JavaPlugin {
 				Player player = (Player)sender;
 				target = player;
 				if (!sender.hasPermission("iocommands.warp")) {
-					player.sendMessage("§cYou are not allowed to use this command.");
+					explainNoTeleports(player);
 					return true;
 				}
 			}
@@ -142,7 +142,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.setwarp")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				explainNoTeleports(player);
 				return true;
 			}
 			
@@ -165,7 +165,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.home")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				explainNoTeleports(player);
 				return true;
 			}
 			
@@ -185,7 +185,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.home")) {
-				player.sendMessage("§aTo set your home, stay in a bed!");
+				explainNoTeleports(player);
 				return true;
 			}
 			
@@ -193,6 +193,14 @@ public class IOCommands extends JavaPlugin {
 			player.sendMessage("§aHome set!");
 			return true;
 		
+		} else if (cmd.getName().equalsIgnoreCase("tpa")) {
+
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				explainNoTeleports(user);
+			}
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("flight")) {
 			
 			Player target = null;
@@ -813,6 +821,15 @@ public class IOCommands extends JavaPlugin {
 			sbStr.append(aArr[i]);
 		}
 		return sbStr.toString();
+	}
+
+
+	//Return a preset message on how we don't allow teleports
+	public static void explainNoTeleports(Player player) {
+		player.sendMessage("We don't do teleports here!");
+		player.sendMessage("We have an extensive network of rails, both in the Nether and on the overworld, to let you get to your destination quickly.");
+		player.sendMessage("Look at the /maps and find where the closest rail or portal to you is located!");
+		player.sendMessage("To set your spawn, use a bed or a respawn anchor.");
 	}
 
 

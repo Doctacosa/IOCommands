@@ -19,6 +19,9 @@ commands:
   warps:
     description: Get a list of existing warps
     usage: /warps
+  tpa:
+    description: Explanation on teleports
+    usage: /tpa
   flight:
     description: Enable and disable flight mode, if allowed.
     usage: /flight
