@@ -80,4 +80,19 @@ public class FunCommands {
 		Random rand = new Random();
 		return rand.nextFloat() * (max - min) + min;
 	}
+
+
+	//Set the velocity of a player and make them go wheeeee
+	public static void setVelocity(Player target, float x, float y, float z, float delay) {
+		//Actual action
+		Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				target.setVelocity(new Vector(x, y, z));
+			}
+		};
+		
+		//Pre-schedule all executions
+		Bukkit.getScheduler().runTaskLater(IOCommands.instance, task, Math.round(delay * 20));
+	}
 }

@@ -55,6 +55,9 @@ commands:
   rocket:
     description: Send a player soaring in the air
     usage: /rocket TARGET STRENGTH
+  setvelocity:
+    description: Send a player in the given direction
+    usage: /setvelocity TARGET X Y Z DELAY
   whois:
     description: Get some information on a player
     usage: /whois TARGET

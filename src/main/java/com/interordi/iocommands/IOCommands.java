@@ -538,6 +538,65 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("setvelocity")) {
+			
+			Player target = null;
+			float x = 0.0f;
+			float y = 0.0f;
+			float z = 0.0f;
+			float delay = 0.0f;
+			
+			//Check if the user has permission to use this command
+			if (!sender.hasPermission("iocommands.setvelocity")) {
+				sender.sendMessage("§cYou are not allowed to use this command!");
+				return true;
+			}
+			
+			//Check and set the parameters
+			if (args.length < 5) {
+				sender.sendMessage("§cMissing parameters.");
+				return true;
+			}
+
+			target = Bukkit.getServer().getPlayer(args[0]);
+
+			if (target == null) {
+				sender.sendMessage("§cTarget not found!");
+				return true;
+			}
+			
+			try {
+				x = Float.parseFloat(args[1]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage("§cInvalid parameter: " + args[1]);
+				return true;
+			}
+			
+			try {
+				y = Float.parseFloat(args[2]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage("§cInvalid parameter: " + args[2]);
+				return true;
+			}
+			
+			try {
+				z = Float.parseFloat(args[3]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage("§cInvalid parameter: " + args[3]);
+				return true;
+			}
+			
+			try {
+				delay = Float.parseFloat(args[4]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage("§cInvalid parameter: " + args[4]);
+				return true;
+			}
+			
+			FunCommands.setVelocity(target, x, y, z, delay);
+			
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("whois")) {
 			
 			if (!(sender instanceof Player))
