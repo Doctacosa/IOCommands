@@ -84,11 +84,36 @@ public class FunCommands {
 
 	//Set the velocity of a player and make them go wheeeee
 	public static void setVelocity(Player target, float x, float y, float z, float delay) {
+
+		if (x > 10)
+			x = 10;
+		if (x < -10)
+			x = -10;
+			
+		if (y > 10)
+			y = 10;
+		if (y < -10)
+			y = -10;
+
+		if (z > 10)
+			z = 10;
+		if (z < -10)
+			z = -10;
+
+		if (delay < 0)
+			delay = 0;
+		if (delay > 60)
+			delay = 60;
+
+		final float finalX = x;
+		final float finalY = y;
+		final float finalZ = z;
+
 		//Actual action
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				target.setVelocity(new Vector(x, y, z));
+				target.setVelocity(new Vector(finalX, finalY, finalZ));
 			}
 		};
 		
