@@ -113,25 +113,25 @@ public class IOCommands extends JavaPlugin {
 			} else if (args.length == 1) {
 				destination = args[0];
 			} else {
-				sender.sendMessage("§cMissing parameter: destination");
+				sender.sendMessage(ChatColor.RED + "Missing parameter: destination");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget player not found!");
+				sender.sendMessage(ChatColor.RED + "Target player not found!");
 				return true;
 			}
 			
 			Warp warp = warps.getWarp(destination);
 			if (warp == null) {
-				sender.sendMessage("§cDestination not found!");
+				sender.sendMessage(ChatColor.RED + "Destination not found!");
 				return true;
 			}
 			
 			try {
 				target.teleport(warp.location);
 			} catch (java.lang.IllegalArgumentException e) {
-				sender.sendMessage("§cThe destination is currently not available.");
+				sender.sendMessage(ChatColor.RED + "The destination is currently not available.");
 			}
 			return true;
 
@@ -150,12 +150,12 @@ public class IOCommands extends JavaPlugin {
 			if (args.length > 0) {
 				name = args[0];
 			} else {
-				player.sendMessage("§cMissing parameter: name");
+				player.sendMessage(ChatColor.RED + "Missing parameter: name");
 				return true;
 			}
 			
 			warps.setWarp(player, name, player.getLocation());
-			player.sendMessage("§aWarp added!");
+			player.sendMessage(ChatColor.GREEN + "Warp added!");
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("home")) {
@@ -171,7 +171,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Location home = homes.getHome(player);
 			if (home == null) {
-				player.sendMessage("§cHome not set!");
+				player.sendMessage(ChatColor.RED + "Home not set!");
 				return true;
 			}
 			
@@ -190,7 +190,7 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			homes.setHome(player, player.getLocation());
-			player.sendMessage("§aHome set!");
+			player.sendMessage(ChatColor.GREEN + "Home set!");
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("tpa")) {
@@ -210,7 +210,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.flight")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -221,7 +221,7 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage(ChatColor.RED + "Target not found!");
 				return true;
 			}
 			
@@ -251,7 +251,7 @@ public class IOCommands extends JavaPlugin {
 				Player user = (Player)sender;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.keepinv")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 				target = user.getWorld();
@@ -260,7 +260,7 @@ public class IOCommands extends JavaPlugin {
 			//Select the target of the command
 			if (args.length == 1) {
 				if (target == null) {
-					sender.sendMessage("§cA world must be specified!");
+					sender.sendMessage(ChatColor.RED + "A world must be specified!");
 					return true;
 				}
 				action = args[0].equals("true");
@@ -268,17 +268,17 @@ public class IOCommands extends JavaPlugin {
 				target = Bukkit.getServer().getWorld(args[0]);
 				action = args[1].equals("true");
 			} else {
-				sender.sendMessage("§cA world must be specified!");
+				sender.sendMessage(ChatColor.RED + "A world must be specified!");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage(ChatColor.RED + "World not found!");
 				return true;
 			}
 			
 			target.setGameRule(GameRule.KEEP_INVENTORY, action);
-			sender.sendMessage("§aThe keepInventory rule for §f" + target.getName() + "§a is now §f" + action);
+			sender.sendMessage(ChatColor.GREEN + "The keepInventory rule for " + ChatColor.WHITE + target.getName() + ChatColor.GREEN + " is now " + ChatColor.WHITE + action);
 			
 			return true;
 		
@@ -292,7 +292,7 @@ public class IOCommands extends JavaPlugin {
 				Player user = (Player)sender;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.time")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 				target = user.getWorld();
@@ -313,7 +313,7 @@ public class IOCommands extends JavaPlugin {
 				
 			} else if (args.length == 2) {
 				if (!sender.hasPermission("iocommands.time.set")) {
-					sender.sendMessage("§cYou are not allowed to use this command!");
+					sender.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 				
@@ -325,17 +325,17 @@ public class IOCommands extends JavaPlugin {
 					time = extractTime(args, 1);
 					set = true;
 				} catch (NumberFormatException e) {
-					sender.sendMessage("§cInvalid time value: " + args[1]);
+					sender.sendMessage(ChatColor.RED + "Invalid time value: " + args[1]);
 					return true;
 				}
 				
 			} else {
-				sender.sendMessage("§cInvalid command!");
+				sender.sendMessage(ChatColor.RED + "Invalid command!");
 				return true;
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage(ChatColor.RED + "World not found!");
 				return true;
 			}
 			
@@ -350,9 +350,9 @@ public class IOCommands extends JavaPlugin {
 			double minutes = Math.floor((currentTime - Math.floor(currentTime / 1000) * 1000) / 1000 * 60);
 
 			if (set) {
-				sender.sendMessage("§eTime for world " + target.getName() + " set to: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				sender.sendMessage(ChatColor.YELLOW + "Time for world " + target.getName() + " set to: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 			} else {
-				sender.sendMessage("§eTime: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				sender.sendMessage(ChatColor.YELLOW + "Time: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 			}
 			
 			return true;
@@ -361,7 +361,7 @@ public class IOCommands extends JavaPlugin {
 			
 			//Check if the user has permission to use this command
 			if (!sender.hasPermission("iocommands.time.set")) {
-				sender.sendMessage("§cYou are not allowed to use this command!");
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 				return true;
 			}
 
@@ -375,7 +375,7 @@ public class IOCommands extends JavaPlugin {
 			
 			//Select the target of the command
 			if (args.length <= 1) {
-				sender.sendMessage("§cMissing parameter!");
+				sender.sendMessage(ChatColor.RED + "Missing parameter!");
 				return true;
 				
 			}
@@ -383,7 +383,7 @@ public class IOCommands extends JavaPlugin {
 			target = Bukkit.getServer().getWorld(args[0]);
 			
 			if (target == null) {
-				sender.sendMessage("§cWorld not found!");
+				sender.sendMessage(ChatColor.RED + "World not found!");
 				return true;
 			}
 			
@@ -406,7 +406,7 @@ public class IOCommands extends JavaPlugin {
 				getServer().broadcastMessage(String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 				
 			} else {
-				sender.sendMessage("§cInvalid command!");
+				sender.sendMessage(ChatColor.RED + "Invalid command!");
 				return true;
 			}
 			
@@ -421,7 +421,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands.warp")) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -432,7 +432,7 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage(ChatColor.RED + "Target not found!");
 				return true;
 			}
 			
@@ -448,28 +448,28 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("setworldspawn")) {
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cThis command must be run in-game!");
+				sender.sendMessage(ChatColor.RED + "This command must be run in-game!");
 				return true;
 			}
 			
 			Player user = (Player)sender;
 			//Check if the user has permission to use this command
 			if (!user.hasPermission("iocommands.setworldspawn")) {
-				user.sendMessage("§cYou are not allowed to use this command!");
+				user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 				return true;
 			}
 			
 			World w = user.getWorld();
 			w.setSpawnLocation(user.getLocation());
 			worldSpawns.setSpawn(user.getLocation());
-			user.sendMessage("§aWorld spawn set!");
+			user.sendMessage(ChatColor.GREEN + "World spawn set!");
 			
 			return true;
 			
 		} else if (cmd.getName().equalsIgnoreCase("kill")) {
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cOnly players can run this command!");
+				sender.sendMessage(ChatColor.RED + "Only players can run this command!");
 				return true;
 			}
 			
@@ -493,7 +493,7 @@ public class IOCommands extends JavaPlugin {
 				target = user;
 				//Check if the user has permission to use this command
 				if (!user.hasPermission("iocommands." + command)) {
-					user.sendMessage("§cYou are not allowed to use this command!");
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
 				}
 			}
@@ -520,7 +520,7 @@ public class IOCommands extends JavaPlugin {
 			}
 
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage(ChatColor.RED + "Target not found!");
 				return true;
 			}
 			
@@ -548,48 +548,48 @@ public class IOCommands extends JavaPlugin {
 			
 			//Check if the user has permission to use this command
 			if (!sender.hasPermission("iocommands.setvelocity")) {
-				sender.sendMessage("§cYou are not allowed to use this command!");
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 				return true;
 			}
 			
 			//Check and set the parameters
 			if (args.length < 5) {
-				sender.sendMessage("§cMissing parameters.");
+				sender.sendMessage(ChatColor.RED + "Missing parameters.");
 				return true;
 			}
 
 			target = Bukkit.getServer().getPlayer(args[0]);
 
 			if (target == null) {
-				sender.sendMessage("§cTarget not found!");
+				sender.sendMessage(ChatColor.RED + "Target not found!");
 				return true;
 			}
 			
 			try {
 				x = Float.parseFloat(args[1]);
 			} catch (NumberFormatException e) {
-				sender.sendMessage("§cInvalid parameter: " + args[1]);
+				sender.sendMessage(ChatColor.RED + "Invalid parameter: " + args[1]);
 				return true;
 			}
 			
 			try {
 				y = Float.parseFloat(args[2]);
 			} catch (NumberFormatException e) {
-				sender.sendMessage("§cInvalid parameter: " + args[2]);
+				sender.sendMessage(ChatColor.RED + "Invalid parameter: " + args[2]);
 				return true;
 			}
 			
 			try {
 				z = Float.parseFloat(args[3]);
 			} catch (NumberFormatException e) {
-				sender.sendMessage("§cInvalid parameter: " + args[3]);
+				sender.sendMessage(ChatColor.RED + "Invalid parameter: " + args[3]);
 				return true;
 			}
 			
 			try {
 				delay = Float.parseFloat(args[4]);
 			} catch (NumberFormatException e) {
-				sender.sendMessage("§cInvalid parameter: " + args[4]);
+				sender.sendMessage(ChatColor.RED + "Invalid parameter: " + args[4]);
 				return true;
 			}
 			
@@ -604,7 +604,7 @@ public class IOCommands extends JavaPlugin {
 			
 			Player player = (Player)sender;
 			if (!player.hasPermission("iocommands.whois")) {
-				player.sendMessage("§cYou are not allowed to use this command.");
+				player.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
 				return true;
 			}
 			
@@ -612,19 +612,19 @@ public class IOCommands extends JavaPlugin {
 			if (args.length > 0) {
 				name = args[0];
 			} else {
-				player.sendMessage("§cMissing parameter: player name");
+				player.sendMessage(ChatColor.RED + "Missing parameter: player name");
 				return true;
 			}
 			
 			Player target = Bukkit.getServer().getPlayer(name);
 			if (target == null) {
-				player.sendMessage("§cTarget not found!");
+				player.sendMessage(ChatColor.RED + "Target not found!");
 				return true;
 			}
 			
-			player.sendMessage("§aInformation on " + target.getName());
-			player.sendMessage("§aUUID: §r" + target.getUniqueId());
-			player.sendMessage("§aIP address: §r" + target.getAddress().getAddress());
+			player.sendMessage(ChatColor.AQUA + "Information on " + target.getName());
+			player.sendMessage(ChatColor.AQUA + "UUID: " + ChatColor.WHITE + target.getUniqueId());
+			player.sendMessage(ChatColor.AQUA + "IP address: " + ChatColor.WHITE + target.getAddress().getAddress());
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("tutorial")) {
@@ -642,14 +642,14 @@ public class IOCommands extends JavaPlugin {
 			if (entry || exit) {
 				if ((entry && !sender.hasPermission("iocommands.tutorial.entry")) ||
 					(exit && !sender.hasPermission("iocommands.tutorial.exit"))) {
-					sender.sendMessage("§cYou are not allowed to use this command.");
+					sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
 					return true;
 				}
 
 				if (args.length > 1)
 					playerName = args[1];
 				else {
-					sender.sendMessage("§cMissing parameter: player name");
+					sender.sendMessage(ChatColor.RED + "Missing parameter: player name");
 					return true;
 				}
 				player = getServer().getPlayer(playerName);
@@ -671,7 +671,7 @@ public class IOCommands extends JavaPlugin {
 		
 			Player player = (Player)sender;
 
-			sender.sendMessage("§aView your web profile to see your progress!");
+			sender.sendMessage(ChatColor.AQUA + "View your web profile to see your progress!");
 			sender.sendMessage(ChatColor.WHITE + "https://www.interordi.com/mboard/mc_profile.php?username=" + player.getDisplayName());
 
 			return true;
@@ -687,7 +687,7 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("warning") || cmd.getName().equalsIgnoreCase("w")) {
 			
 			if (!sender.hasPermission("iocommands.warning")) {
-				sender.sendMessage("§cYou are not allowed to use this command.");
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
 				return true;
 			}
 
@@ -697,13 +697,13 @@ public class IOCommands extends JavaPlugin {
 			if (args.length >= 1)
 				playerName = args[0];
 			else {
-				sender.sendMessage("§cMissing parameter: player name");
+				sender.sendMessage(ChatColor.RED + "Missing parameter: player name");
 				return true;
 			}
 			target = getServer().getPlayer(playerName);
 
 			if (target == null) {
-				sender.sendMessage("§cTarget not found: " + playerName);
+				sender.sendMessage(ChatColor.RED + "Target not found: " + playerName);
 				return true;
 			}
 			
@@ -713,8 +713,8 @@ public class IOCommands extends JavaPlugin {
 			} else
 				message += "No griefing will be tolerated. Griefing is breaking or taking anything that belongs to someone else, or adding to a structure that isn't yours, without permission.";
 
-			target.sendMessage("§cWARNING: §f" + message);
-			target.sendTitle("§c§lWARNING", "§6" + playerName + ", see the chat now.", 10, 100, 10);
+			target.sendMessage(ChatColor.RED + "WARNING: " + ChatColor.WHITE + message);
+			target.sendTitle(ChatColor.RED + "" + ChatColor.BOLD + "WARNING", ChatColor.GOLD + playerName + ", see the chat now.", 10, 100, 10);
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30 * 20, 2), false);
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 30 * 20, 2), false);
 
@@ -725,55 +725,55 @@ public class IOCommands extends JavaPlugin {
 
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
-			sender.sendMessage("§aHere are some useful tips and features available only here!");
+			sender.sendMessage(ChatColor.AQUA + "Here are some useful tips and features available only here!");
 			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/tips.php");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("map") || cmd.getName().equalsIgnoreCase("maps")) {
 			
-			sender.sendMessage("§aThe live maps for all servers can be found here.");
+			sender.sendMessage(ChatColor.AQUA + "The live maps for all servers can be found here.");
 			sender.sendMessage(ChatColor.WHITE + "https://map.creeperslab.net/");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("rules")) {
 			
-			sender.sendMessage("§aWe have a few rules in place for the benefit of everyone.");
-			sender.sendMessage("§61- Family friendly");
-			sender.sendMessage("§62- No discussions on religion and politics");
-			sender.sendMessage("§63- No flying, running or x-ray mods");
-			sender.sendMessage("§64- No lagging devices");
-			sender.sendMessage("§65- No griefing");
-			sender.sendMessage("§66- No player traps");
-			sender.sendMessage("§67- Respect private property");
-			sender.sendMessage("§68- Player safety");
+			sender.sendMessage(ChatColor.AQUA + "We have a few rules in place for the benefit of everyone.");
+			sender.sendMessage(ChatColor.WHITE + "1- Family friendly");
+			sender.sendMessage(ChatColor.WHITE + "2- No discussions on religion and politics");
+			sender.sendMessage(ChatColor.WHITE + "3- No flying, running or x-ray mods");
+			sender.sendMessage(ChatColor.WHITE + "4- No lagging devices");
+			sender.sendMessage(ChatColor.WHITE + "5- No griefing");
+			sender.sendMessage(ChatColor.WHITE + "6- No player traps");
+			sender.sendMessage(ChatColor.WHITE + "7- Respect private property");
+			sender.sendMessage(ChatColor.WHITE + "8- Player safety");
 			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/rules.php");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("help")) {
 			
-			sender.sendMessage("§aHello! If you have any questions about the server, don't hesitate to ask, the community likes to help.");
-			sender.sendMessage("§rUseful commands:");
-			sender.sendMessage("§6§l/rules§r: A summary of our rules");
-			sender.sendMessage("§6§l/register§r: Access the registration instructions");
-			sender.sendMessage("§6§l/tips§r: Read on our gameplay changes and commands");
-			sender.sendMessage("§6§l/map§r: View the server maps");
+			sender.sendMessage(ChatColor.AQUA + "Hello! If you have any questions about the server, don't hesitate to ask, the community likes to help.");
+			sender.sendMessage(ChatColor.AQUA + "Useful commands:");
+			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/rules" + ChatColor.RESET + ": A summary of our rules");
+			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/register" + ChatColor.RESET + ": Access the registration instructions");
+			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/tips" + ChatColor.RESET + ": Read on our gameplay changes and commands");
+			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/map" + ChatColor.RESET + ": View the server maps");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("kit")) {
 			
-			sender.sendMessage("§aWant a starting kit of items?");
-			sender.sendMessage("§aGo to Cimmeria and try out the tutorial!");
+			sender.sendMessage(ChatColor.AQUA + "Want a starting kit of items?");
+			sender.sendMessage(ChatColor.AQUA + "Go to Cimmeria and try out the tutorial!");
 			
 			return true;
 		
 		} else if (cmd.getName().equalsIgnoreCase("broadcast")) {
 			
 			if (!sender.hasPermission("iocommands.broadcast")) {
-				sender.sendMessage("§cYou are not allowed to use this command.");
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
 				return true;
 			}
 			
@@ -786,7 +786,7 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("switch")) {
 
 			if (!sender.hasPermission("iocommands.switch")) {
-				sender.sendMessage("§cYou are not allowed to use this command.");
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
 				return true;
 			}
 
@@ -803,7 +803,7 @@ public class IOCommands extends JavaPlugin {
 				destination = args[0];
 				target = (Player)sender;
 			} else {
-				sender.sendMessage("§cMissing parameter: destination server");
+				sender.sendMessage(ChatColor.RED + "Missing parameter: destination server");
 				return true;
 			}
 

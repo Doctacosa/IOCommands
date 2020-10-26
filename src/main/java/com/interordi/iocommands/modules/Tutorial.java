@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -32,7 +33,7 @@ public class Tutorial {
 	public void onCommand(Player player, boolean exit) {
 		
 		if (!player.getWorld().getName().equals("world_cimmeria")) {
-			player.sendMessage("§aThe tutorial is in Cimmeria! Do /lobby and head there.");
+			player.sendMessage(ChatColor.GOLD + "The tutorial is in Cimmeria! Do /lobby and head there.");
 			return;
 		}
 		
@@ -49,7 +50,7 @@ public class Tutorial {
 		
 		//Check
 		if (locations.containsKey(player.getUniqueId())) {
-			player.sendMessage("§aYou have already gone through the tutorial!");
+			player.sendMessage(ChatColor.GOLD + "You have already gone through the tutorial!");
 			return;
 		}
 		

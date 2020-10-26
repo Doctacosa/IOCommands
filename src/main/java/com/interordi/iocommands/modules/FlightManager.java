@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -48,13 +49,13 @@ public class FlightManager
 		if (newStatus != curStatus) {
 			if (newStatus) {
 				if (source != null && source.getUniqueId() != player.getUniqueId())
-					source.sendMessage("§b" + player.getDisplayName() + " can now fly!");
-				player.sendMessage("§bYou can now fly!");
+					source.sendMessage(ChatColor.GREEN + player.getDisplayName() + " can now fly!");
+				player.sendMessage(ChatColor.GREEN + "You can now fly!");
 			}
 			else {
 				if (source != null && source.getUniqueId() != player.getUniqueId())
-					source.sendMessage("§b" + player.getDisplayName() + " can no longer fly!");
-				player.sendMessage("§bYou can no longer fly!");
+					source.sendMessage(ChatColor.GREEN + player.getDisplayName() + " can no longer fly!");
+				player.sendMessage(ChatColor.GREEN + "You can no longer fly!");
 			}
 		}
 		

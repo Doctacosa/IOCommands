@@ -3,6 +3,7 @@ package com.interordi.iocommands.modules;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -27,9 +28,9 @@ public class FunCommands {
 		//Notify as appropriate
 		if (fromPlayer) {
 			if (amount > 1)
-				Bukkit.broadcastMessage("§6" + target.getDisplayName() + " is being shocked " + amount + " times!");
+				Bukkit.broadcastMessage(ChatColor.GOLD + target.getDisplayName() + " is being shocked " + amount + " times!");
 			else
-				Bukkit.broadcastMessage("§6" + target.getDisplayName() + " was shocked!");
+				Bukkit.broadcastMessage(ChatColor.GOLD + target.getDisplayName() + " was shocked!");
 		}
 		
 	}
@@ -41,7 +42,7 @@ public class FunCommands {
 		
 		//Notify as appropriate
 		if (fromPlayer) {
-			Bukkit.broadcastMessage("§6" + target.getDisplayName() + " is heading for the skies!");
+			Bukkit.broadcastMessage(ChatColor.GOLD + target.getDisplayName() + " is heading for the skies!");
 		}
 		
 	}
@@ -68,9 +69,9 @@ public class FunCommands {
 		//Notify as appropriate
 		if (fromPlayer) {
 			if (amount > 1)
-				Bukkit.broadcastMessage("§6" + target.getDisplayName() + " is being slapped " + amount + " times!");
+				Bukkit.broadcastMessage(ChatColor.GOLD + target.getDisplayName() + " is being slapped " + amount + " times!");
 			else
-				Bukkit.broadcastMessage("§6" + target.getDisplayName() + " was slapped!");
+				Bukkit.broadcastMessage(ChatColor.GOLD + target.getDisplayName() + " was slapped!");
 		}
 		
 	}
