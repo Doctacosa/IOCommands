@@ -669,10 +669,8 @@ public class IOCommands extends JavaPlugin {
 			if (!(sender instanceof Player))
 				return false;
 		
-			Player player = (Player)sender;
-
 			sender.sendMessage(ChatColor.AQUA + "View your web profile to see your progress!");
-			sender.sendMessage(ChatColor.WHITE + "https://www.interordi.com/mboard/mc_profile.php?username=" + player.getDisplayName());
+			sender.sendMessage(ChatColor.WHITE + "» " + ChatColor.BOLD + "get2.io/cl/profile");
 
 			return true;
 
@@ -726,14 +724,14 @@ public class IOCommands extends JavaPlugin {
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
 			sender.sendMessage(ChatColor.AQUA + "Here are some useful tips and features available only here!");
-			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/tips.php");
+			sender.sendMessage(ChatColor.WHITE + "» " + ChatColor.BOLD + "get2.io/cl/tips");
 			
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("map") || cmd.getName().equalsIgnoreCase("maps")) {
 			
 			sender.sendMessage(ChatColor.AQUA + "The live maps for all servers can be found here.");
-			sender.sendMessage(ChatColor.WHITE + "https://map.creeperslab.net/");
+			sender.sendMessage(ChatColor.WHITE + "» " + ChatColor.BOLD + "get2.io/cl/maps");
 			
 			return true;
 
@@ -748,7 +746,7 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage(ChatColor.WHITE + "6- No player traps");
 			sender.sendMessage(ChatColor.WHITE + "7- Respect private property");
 			sender.sendMessage(ChatColor.WHITE + "8- Player safety");
-			sender.sendMessage(ChatColor.WHITE + "https://www.creeperslab.net/rules.php");
+			sender.sendMessage(ChatColor.WHITE + "» " + ChatColor.BOLD + "get2.io/cl/rules");
 			
 			return true;
 
