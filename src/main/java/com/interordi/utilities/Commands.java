@@ -170,16 +170,21 @@ public class Commands {
 					for (Player p : playersRaw) {
 						if (location.getWorld() != p.getWorld())
 							continue;
+						
 						double distance = location.distance(p.getLocation());
 						players.add(new PlayerSort(p, distance));
 					}
 					
 				} else {
-					//Basic list with no distance
+					//Basic list
 					players = new HashSet< PlayerSort >();
 					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
 					for (Player p : playersRaw) {
-						players.add(new PlayerSort(p, 0));
+						if (location.getWorld() != p.getWorld())
+							continue;
+
+						double distance = location.distance(p.getLocation());
+						players.add(new PlayerSort(p, distance));
 					}
 				}
 				
@@ -187,7 +192,7 @@ public class Commands {
 				for (PlayerSort ps : players) {
 					double distance = ps.distance;
 					Player player = ps.player;
-					
+
 					//Include players that match all conditions
 					if (distance >= minDistance &&
 						distance <= maxDistance) {
