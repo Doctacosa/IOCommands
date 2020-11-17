@@ -716,6 +716,8 @@ public class IOCommands extends JavaPlugin {
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30 * 20, 2), false);
 			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 30 * 20, 2), false);
 
+			sender.sendMessage(ChatColor.GREEN + "Warning sent to " + playerName + ".");
+
 			//Notify staff
 			Bukkit.getServer().getLogger().info("|IOSTAFF|" + playerName + " was warned: " + message);
 
