@@ -613,6 +613,11 @@ public class IOCommands extends JavaPlugin {
 			
 			//Select the target of the command
 			if (args.length >= 1 && args[0].length() > 3) {
+				if (!sender.hasPermission("iocommands.pos.other")) {
+					sender.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
+					return true;
+				}
+
 				target = Bukkit.getServer().getPlayer(args[0]);
 			}
 			
