@@ -58,6 +58,9 @@ commands:
   setvelocity:
     description: Send a player in the given direction
     usage: /setvelocity TARGET X Y Z DELAY
+  pos:
+    description: Get a local display of your position
+    usage: /pos on|off
   whois:
     description: Get some information on a player
     usage: /whois TARGET

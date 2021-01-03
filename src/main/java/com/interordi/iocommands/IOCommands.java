@@ -597,6 +597,44 @@ public class IOCommands extends JavaPlugin {
 			
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("pos")) {
+
+			Player target = null;
+			
+			if (sender instanceof Player) {
+				Player user = (Player)sender;
+				target = user;
+				//Check if the user has permission to use this command
+				if (!user.hasPermission("iocommands.pos")) {
+					user.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
+					return true;
+				}
+			}
+			
+			//Select the target of the command
+			if (args.length >= 1 && args[0].length() > 3) {
+				target = Bukkit.getServer().getPlayer(args[0]);
+			}
+			
+			if (target == null) {
+				sender.sendMessage(ChatColor.RED + "Target not found!");
+				return true;
+			}
+			
+			int status = -1;
+			
+			if (args.length > 0) {
+				if (args[0].equalsIgnoreCase("on")) {
+					status = 1;
+				} else if (args[0].equalsIgnoreCase("off")) {
+					status = 0;
+				}
+			}
+			
+			thisPlayerListener.setPositionStatus(target, status);
+			
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("whois")) {
 			
 			if (!(sender instanceof Player))
