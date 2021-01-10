@@ -69,7 +69,9 @@ public class PlayerListener implements Listener {
 
 	public void displayPosition(Player player, Location loc) {
 		String direction = "";
-		float yaw = ((loc.getYaw() + 180) % 360) - 180;
+		float yaw = ((loc.getYaw() % 360) + 360) % 360;
+		if (yaw > 180)
+			yaw -= 360;
 		if (yaw > -22.5 && yaw <= 22.5)			direction = "south";
 		else if (yaw > 22.5 && yaw <= 67.5)		direction = "southwest";
 		else if (yaw > 67.5 && yaw <= 112.5)	direction = "west";
