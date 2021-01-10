@@ -1,4 +1,4 @@
-package com.interordi.utilities;
+package com.interordi.iocommands.utilities;
 
 import java.util.ArrayList;
 import java.util.Collection;

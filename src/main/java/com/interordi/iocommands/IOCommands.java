@@ -27,8 +27,8 @@ import com.interordi.iocommands.modules.FunCommands;
 import com.interordi.iocommands.modules.Homes;
 import com.interordi.iocommands.modules.WorldSpawns;
 import com.interordi.iocommands.modules.Tutorial;
-import com.interordi.utilities.CommandTargets;
-import com.interordi.utilities.Commands;
+import com.interordi.iocommands.utilities.CommandTargets;
+import com.interordi.iocommands.utilities.Commands;
 
 public class IOCommands extends JavaPlugin {
 
