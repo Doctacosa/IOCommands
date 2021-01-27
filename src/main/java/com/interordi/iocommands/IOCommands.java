@@ -10,12 +10,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -27,6 +29,7 @@ import com.interordi.iocommands.modules.FunCommands;
 import com.interordi.iocommands.modules.Homes;
 import com.interordi.iocommands.modules.WorldSpawns;
 import com.interordi.iocommands.modules.Tutorial;
+import com.interordi.iocommands.modules.Minecarts;
 import com.interordi.iocommands.utilities.CommandTargets;
 import com.interordi.iocommands.utilities.Commands;
 
@@ -57,6 +60,7 @@ public class IOCommands extends JavaPlugin {
 		this.worldSpawns = new WorldSpawns(this);
 		this.tutorial = new Tutorial(this);
 		thisFlightManager = new FlightManager(this);
+		Minecarts.init();
 		
 		getLogger().info("IOCommands enabled");
 	}
@@ -763,6 +767,29 @@ public class IOCommands extends JavaPlugin {
 
 			//Notify staff
 			Bukkit.getServer().getLogger().info("|IOSTAFF|" + playerName + " was warned: " + message);
+
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("minecart")) {
+			
+			if (!sender.hasPermission("iocommands.minecart")) {
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
+				return true;
+			}
+
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "This command must be used by a player.");
+				return true;
+			}
+
+			Player player = (Player)sender;
+			if (Minecarts.request(player)) {
+				sender.sendMessage(ChatColor.GREEN + "Have an emergency minecart!");
+				player.getInventory().addItem(new ItemStack(Material.MINECART));
+
+			} else {
+				sender.sendMessage(ChatColor.RED + "You can only get a minecart once every 24 hours.");
+			}
 
 			return true;
 

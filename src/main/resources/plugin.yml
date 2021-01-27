@@ -101,6 +101,9 @@ commands:
   w:
     description: Warn a user about the rules
     usage: /w user message
+  minecart:
+    description: Obtain an emergency minecart
+    usage: /minecart
 
 permissions:
   iocommands.troll:
