@@ -64,6 +64,15 @@ public class Tutorial {
 	//Get the list from the file
 	public void loadTutorial() {
 		File statsFile = new File(this.filePath);
+		try {
+			if (!statsFile.exists())
+				statsFile.createNewFile();
+		} catch (IOException e) {
+			System.err.println("Failed to create the tutorial file");
+			e.printStackTrace();
+			return;
+		}
+
 		FileConfiguration statsAccess = YamlConfiguration.loadConfiguration(statsFile);
 		
 		ConfigurationSection playersData = statsAccess.getConfigurationSection("players");

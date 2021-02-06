@@ -35,8 +35,16 @@ public class WorldSpawns {
 	public void load() {
 		CSVReader reader = null;
 		try {
+			File file = new File(this.file);
+			if (!file.exists())
+				file.createNewFile();
+
 			reader = new CSVReader(new FileReader(this.file));
 		} catch (FileNotFoundException e) {
+			System.err.println("Failed to load the spawns file");
+			e.printStackTrace();
+			return;
+		} catch (IOException e) {
 			System.err.println("Failed to load the spawns file");
 			e.printStackTrace();
 			return;
