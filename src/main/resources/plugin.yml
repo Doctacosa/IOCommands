@@ -104,6 +104,9 @@ commands:
   minecart:
     description: Obtain an emergency minecart
     usage: /minecart
+  restart:
+    description: Staff command, prepare a restart
+    usage: /restart
 
 permissions:
   iocommands.troll:

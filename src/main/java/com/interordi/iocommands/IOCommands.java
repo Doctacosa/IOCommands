@@ -30,6 +30,7 @@ import com.interordi.iocommands.modules.Homes;
 import com.interordi.iocommands.modules.WorldSpawns;
 import com.interordi.iocommands.modules.Tutorial;
 import com.interordi.iocommands.modules.Minecarts;
+import com.interordi.iocommands.modules.Restart;
 import com.interordi.iocommands.utilities.CommandTargets;
 import com.interordi.iocommands.utilities.Commands;
 
@@ -42,6 +43,7 @@ public class IOCommands extends JavaPlugin {
 	public WorldSpawns worldSpawns;
 	public Tutorial tutorial;
 	public FlightManager thisFlightManager;
+	public Restart restart;
 	public PlayerListener thisPlayerListener;
 	
 	//private boolean bungeeInit = false;
@@ -60,6 +62,7 @@ public class IOCommands extends JavaPlugin {
 		this.worldSpawns = new WorldSpawns(this);
 		this.tutorial = new Tutorial(this);
 		thisFlightManager = new FlightManager(this);
+		this.restart = new Restart();
 		Minecarts.init();
 		
 		getLogger().info("IOCommands enabled");
@@ -793,6 +796,27 @@ public class IOCommands extends JavaPlugin {
 
 			return true;
 
+		} else if (cmd.getName().equalsIgnoreCase("restart")) {
+			
+			if (!sender.hasPermission("iocommands.restart")) {
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
+				return true;
+			}
+
+			int duration = 1;
+			if (args.length > 0) {
+				try {
+					duration = Integer.parseInt(args[0]);
+				} catch (NumberFormatException e) {
+					sender.sendMessage(ChatColor.RED + "You must enter a valid duration, in minutes.");
+					return true;
+				}
+			}
+
+			restart.scheduleRestart(duration);
+
+			return true;
+
 		} else if (cmd.getName().equalsIgnoreCase("tips")) {
 			
 			sender.sendMessage(ChatColor.AQUA + "Here are some useful tips and features available only here!");
@@ -962,4 +986,8 @@ public class IOCommands extends JavaPlugin {
 	}
 
 
+	//Get the restart control instance
+	public Restart getRestart() {
+		return restart;
+	}
 }

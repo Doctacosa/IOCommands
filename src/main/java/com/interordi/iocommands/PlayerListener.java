@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -41,11 +42,17 @@ public class PlayerListener implements Listener {
 			displayPosition(player, player.getLocation());
 		}
 	}
+
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		if (plugin.getRestart().isShuttingDown())
+			event.getPlayer().kickPlayer("The server is being prepared for a restart, please try again later.");
+	}
 	
 
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event)
-	{
+	public void onPlayerQuit(PlayerQuitEvent event) {
 		this.plugin.setFlightStatus(null, event.getPlayer(), 0);
 		posActive.remove(event.getPlayer().getUniqueId());
 	}
