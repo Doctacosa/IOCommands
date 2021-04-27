@@ -410,7 +410,7 @@ public class IOCommands extends JavaPlugin {
 				hours = hours % 24;
 				double minutes = Math.floor((currentTime - Math.floor(currentTime / 1000) * 1000) / 1000 * 60);
 
-				getServer().broadcastMessage(String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
+				getServer().broadcastMessage("Current time: " + String.format("%02.0f", hours) + ":" + String.format("%02.0f", minutes));
 				
 			} else {
 				sender.sendMessage(ChatColor.RED + "Invalid command!");
