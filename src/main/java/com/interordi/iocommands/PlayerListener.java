@@ -48,6 +48,14 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (plugin.getRestart().isShuttingDown())
 			event.getPlayer().kickPlayer("The server is being prepared for a restart, please try again later.");
+
+		//Display any relevant login message to the incoming player
+		for (String permission : plugin.getLoginMessages().keySet()) {
+			if (event.getPlayer().hasPermission(permission)) {
+				for (String message : plugin.getLoginMessages().get(permission))
+					event.getPlayer().sendMessage(message);
+			}
+		}
 	}
 	
 

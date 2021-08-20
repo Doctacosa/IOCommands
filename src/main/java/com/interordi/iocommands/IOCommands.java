@@ -1,10 +1,14 @@
 package com.interordi.iocommands;
 
+import java.util.ArrayList;
 //import java.io.ByteArrayOutputStream;
 //import java.io.DataOutputStream;
 //import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 //import java.util.List;
+import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -45,12 +49,37 @@ public class IOCommands extends JavaPlugin {
 	public FlightManager thisFlightManager;
 	public Restart restart;
 	public PlayerListener thisPlayerListener;
+
+	private Map< String, List< String > > loginMessages;
 	
 	//private boolean bungeeInit = false;
 
 	
 	public void onEnable() {
 		instance = this;
+		
+		//Always ensure we've got a copy of the config in place (does not overwrite existing)
+		this.saveDefaultConfig();
+
+		loginMessages = new HashMap< String, List< String > >();
+
+		if (this.getConfig().getConfigurationSection("message-on-login") != null) {
+			Map< String, Object> loginPermissions = this.getConfig().getConfigurationSection("message-on-login").getValues(false);
+			if (loginPermissions != null && !loginPermissions.isEmpty()) {
+				loginPermissions.forEach((key, y) -> {
+					//TODO: Find the proper way to use the object "y" directly
+					List< String > messages = new ArrayList< String >();
+					String permission = this.getConfig().getString("message-on-login." + key + ".permission", "");
+					for (String message : this.getConfig().getStringList("message-on-login." + key + ".messages")) {
+						message = message.replace("&", "§");
+						messages.add(message);
+					}
+					if (!permission.isEmpty() && !messages.isEmpty())
+						loginMessages.put(permission, messages);
+				});
+			}
+		}
+
 		
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdir();
@@ -989,5 +1018,11 @@ public class IOCommands extends JavaPlugin {
 	//Get the restart control instance
 	public Restart getRestart() {
 		return restart;
+	}
+
+
+	//Return the list of public messages
+	public Map< String, List< String > > getLoginMessages() {
+		return loginMessages;
 	}
 }

@@ -1,0 +1,11 @@
+message-on-login:
+  visitor:
+    permission: iocommands.visitor
+    messages:
+      - "&7Hello, visitor!"
+      - "&7Consider checking &f/register &7 to join us!"
+  player:
+    permission: iocommands.player
+    messages:
+      - "&7Hello and welcome!"
+      - "&7How are you doing today?"
