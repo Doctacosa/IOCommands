@@ -883,6 +883,7 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/register" + ChatColor.RESET + ": Access the registration instructions");
 			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/tips" + ChatColor.RESET + ": Read on our gameplay changes and commands");
 			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/map" + ChatColor.RESET + ": View the server maps");
+			sender.sendMessage(ChatColor.WHITE + "" + ChatColor.BOLD + "/wiki" + ChatColor.RESET + ": Access or search our wiki");
 			
 			return true;
 
