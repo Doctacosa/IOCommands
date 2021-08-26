@@ -1,4 +1,7 @@
 # IOCommands
+
+![Logo](https://www.interordi.com/images/plugins/iocommands-96.png)
+
 Utility commands for the players and staff of a Minecraft server
 
 
