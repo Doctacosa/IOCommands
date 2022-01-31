@@ -211,7 +211,12 @@ public class IOCommands extends JavaPlugin {
 				return true;
 			}
 			
-			player.teleport(home);
+			try {
+				player.teleport(home);
+			} catch (java.lang.IllegalArgumentException e) {
+				player.sendMessage(ChatColor.RED + "The home world is not available!");
+				return true;
+			}
 			return true;
 
 		} else if (cmd.getName().equalsIgnoreCase("sethome")) {
