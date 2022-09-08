@@ -110,7 +110,7 @@ public class IOCommands extends JavaPlugin {
 		CommandTargets results = Commands.findTargets(Bukkit.getServer(), sender, cmd, label, args);
 		
 		boolean result = false;
-		if (results.position != -1) {
+		if (results != null && results.position != -1) {
 			//Run the command for each target identified by the selector
 			for (String target : results.targets) {
 				args[results.position] = target;
