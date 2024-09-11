@@ -875,7 +875,7 @@ public class IOCommands extends JavaPlugin {
 			sender.sendMessage(ChatColor.WHITE + "5- No griefing");
 			sender.sendMessage(ChatColor.WHITE + "6- No player traps");
 			sender.sendMessage(ChatColor.WHITE + "7- Respect private property");
-			sender.sendMessage(ChatColor.WHITE + "8- Player safety");
+			sender.sendMessage(ChatColor.WHITE + "8- Respect the player experience");
 			sender.sendMessage(ChatColor.WHITE + "» " + ChatColor.BOLD + "get2.io/cl/rules");
 			
 			return true;
