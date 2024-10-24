@@ -653,7 +653,11 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			//Select the target of the command
-			if (args.length >= 1 && args[0].length() > 3) {
+			if (args.length >= 1 &&
+				!args[0].equalsIgnoreCase("on") &&
+				!args[0].equalsIgnoreCase("off") &&
+				!args[0].equalsIgnoreCase("sticky") &&
+				!args[0].equalsIgnoreCase("BigBlackDildoNunchucks")) {
 				if (!sender.hasPermission("iocommands.pos.other")) {
 					sender.sendMessage(ChatColor.RED + "You are not allowed to use this command!");
 					return true;
@@ -670,7 +674,11 @@ public class IOCommands extends JavaPlugin {
 			int status = -1;
 			
 			if (args.length > 0) {
-				if (args[0].equalsIgnoreCase("on")) {
+				if (args[0].equalsIgnoreCase("sticky") ||
+					args[0].equalsIgnoreCase("stick") ||
+					args[0].equalsIgnoreCase("BigBlackDildoNunchucks")) {
+					status = 2;
+				} else if (args[0].equalsIgnoreCase("on")) {
 					status = 1;
 				} else if (args[0].equalsIgnoreCase("off")) {
 					status = 0;

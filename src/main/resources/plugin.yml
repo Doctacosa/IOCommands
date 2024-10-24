@@ -60,7 +60,7 @@ commands:
     usage: /setvelocity TARGET X Y Z DELAY
   pos:
     description: Get a local display of your position
-    usage: /pos on|off
+    usage: /pos on|off|sticky
   whois:
     description: Get some information on a player
     usage: /whois TARGET
@@ -74,7 +74,7 @@ commands:
     description: Get the rules of the server
     usage: /rules
   help:
-    description: Get some basic help and information ont he server
+    description: Get some basic help and information on the server
     usage: /help
   map:
     description: Get the link to the server maps

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -18,25 +19,37 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class PlayerListener implements Listener {
+public class PlayerListener implements Listener, Runnable {
 
 	private IOCommands plugin;
+	private Set< UUID > posSticky;
 	private Set< UUID > posActive;
 
 	
 	public PlayerListener(IOCommands plugin) {
 		this.plugin = plugin;
+		this.posSticky = new HashSet< UUID >();
 		this.posActive = new HashSet< UUID >();
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
+
+		//Refresh the display for sticky users every second
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(IOCommands.instance, this, 10 * 20L, 1 * 20L);
 	}
 
 
 	//Set if a player's position would be tracked
 	public void setPositionStatus(Player player, int status) {
-		if (status == 1) {
+		if (status == 2) {
+			posSticky.add(player.getUniqueId());
+			posActive.add(player.getUniqueId());
+			displayPosition(player, player.getLocation());
+		} if (status == 1) {
+			posSticky.remove(player.getUniqueId());
 			posActive.add(player.getUniqueId());
 			displayPosition(player, player.getLocation());
 		} else if (status == 0) {
+			posSticky.remove(player.getUniqueId());
 			posActive.remove(player.getUniqueId());
 		} else if (status == -1) {
 			displayPosition(player, player.getLocation());
@@ -62,13 +75,14 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		this.plugin.setFlightStatus(null, event.getPlayer(), 0);
+		posSticky.remove(event.getPlayer().getUniqueId());
 		posActive.remove(event.getPlayer().getUniqueId());
 	}
 
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		if (posActive.size() == 0 || !posActive.contains(event.getPlayer().getUniqueId()))
+		if (!posActive.contains(event.getPlayer().getUniqueId()))
 			return;
 		
 		//If subscribed to move notifications, update
@@ -78,6 +92,16 @@ public class PlayerListener implements Listener {
 			Math.abs(event.getFrom().getYaw() - event.getTo().getYaw()) >= 0.5) {
 
 			displayPosition(event.getPlayer(), event.getTo());
+		}
+	}
+
+
+	//Keep on display by forcing a refresh
+	public void run() {
+		for (UUID uuid : posSticky) {
+			Player player = Bukkit.getPlayer(uuid);
+
+			displayPosition(player, player.getLocation());
 		}
 	}
 
