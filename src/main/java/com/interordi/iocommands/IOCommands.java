@@ -515,6 +515,19 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			Player user = (Player)sender;
+
+			//Users with permission (staff?) can't trigger the base command accidentally
+			if (user.hasPermission("iocommands.kill")) {
+				String target = "";
+				if (args.length >= 1) {
+					target = args[0];
+				}
+	
+				if (!target.equalsIgnoreCase("self")) {
+					user.sendMessage(ChatColor.RED + "Did you mean to use `" + ChatColor.WHITE + "/minecraft:kill" + ChatColor.RED + "` or `" + ChatColor.WHITE + "/kill self" + ChatColor.RED + "`?");
+					return true;
+				}
+			}
 			user.setHealth(0);
 			return true;
 
