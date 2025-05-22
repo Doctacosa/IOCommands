@@ -16,6 +16,7 @@ import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -35,6 +36,7 @@ import com.interordi.iocommands.modules.WorldSpawns;
 import com.interordi.iocommands.modules.Tutorial;
 import com.interordi.iocommands.modules.Minecarts;
 import com.interordi.iocommands.modules.Restart;
+import com.interordi.iocommands.modules.SpawnMob;
 import com.interordi.iocommands.utilities.CommandTargets;
 import com.interordi.iocommands.utilities.Commands;
 
@@ -49,6 +51,7 @@ public class IOCommands extends JavaPlugin {
 	public FlightManager thisFlightManager;
 	public Restart restart;
 	public PlayerListener thisPlayerListener;
+	public SpawnMob spawnMob;
 
 	private Map< String, List< String > > loginMessages;
 	
@@ -92,6 +95,7 @@ public class IOCommands extends JavaPlugin {
 		this.tutorial = new Tutorial(this);
 		thisFlightManager = new FlightManager(this);
 		this.restart = new Restart();
+		this.spawnMob = new SpawnMob(this);
 		Minecarts.init();
 		
 		getLogger().info("IOCommands enabled");
@@ -766,6 +770,53 @@ public class IOCommands extends JavaPlugin {
 			}
 			
 			tutorial.onCommand(player, exit);
+			
+			return true;
+
+		} else if (cmd.getName().equalsIgnoreCase("spawnmob")) {
+
+			if (!sender.hasPermission("iocommands.spawnmob")) {
+				sender.sendMessage(ChatColor.RED + "You are not allowed to use this command.");
+				return true;
+			}
+
+			String mob = "zombie";
+			int amount = 1;
+			double spread = 1.0;
+
+			Location pos = getServer().getWorlds().get(0).getSpawnLocation();
+			if (sender instanceof Player) {
+				Player player = (Player)sender;
+				pos = player.getLocation();
+			} else if (sender instanceof BlockCommandSender) {
+				BlockCommandSender blockSender = (BlockCommandSender)sender;
+				pos = blockSender.getBlock().getLocation();
+			}
+
+			if (args.length > 0)
+				mob = args[0];
+			if (args.length > 1) {
+				try {
+					amount = Integer.parseInt(args[1]);
+				} catch (NumberFormatException e) {}
+			}
+			if (args.length > 2) {
+				try {
+					spread = Double.parseDouble(args[2]);
+				} catch (NumberFormatException e) {}
+			}
+			if (args.length > 5) {
+				try {
+					int x = Integer.parseInt(args[3]);
+					int y = Integer.parseInt(args[4]);
+					int z = Integer.parseInt(args[5]);
+					pos.setX(x);
+					pos.setY(y);
+					pos.setZ(z);
+				} catch (NumberFormatException e) {}
+			}
+
+			spawnMob.spawn(sender, mob, amount, spread, pos);
 			
 			return true;
 

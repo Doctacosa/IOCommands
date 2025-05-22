@@ -107,6 +107,9 @@ commands:
   restart:
     description: Staff command, prepare a restart
     usage: /restart
+  spawnmob:
+    description: Summon one or many mobs
+    usage: /spawnmob
 
 permissions:
   iocommands.troll:
