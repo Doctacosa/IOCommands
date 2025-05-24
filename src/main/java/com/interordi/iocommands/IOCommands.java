@@ -869,8 +869,8 @@ public class IOCommands extends JavaPlugin {
 
 			target.sendMessage(ChatColor.RED + "WARNING: " + ChatColor.WHITE + message);
 			target.sendTitle(ChatColor.RED + "" + ChatColor.BOLD + "WARNING", ChatColor.GOLD + playerName + ", see the chat now.", 10, 100, 10);
-			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30 * 20, 2), false);
-			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 30 * 20, 2), false);
+			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 30 * 20, 2), false);
+			target.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 30 * 20, 2), false);
 
 			sender.sendMessage(ChatColor.GREEN + "Warning sent to " + playerName + ".");
 
