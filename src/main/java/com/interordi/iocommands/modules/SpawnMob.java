@@ -1,5 +1,8 @@
 package com.interordi.iocommands.modules;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -19,13 +22,20 @@ public class SpawnMob {
 	
 	
 	//Spawn one or many mobs as requested
-	public boolean spawn(CommandSender sender, String mob, int amount, double spread, Location pos) {
+	public boolean spawn(CommandSender sender, String rawMobs, int amount, double spread, Location pos) {
 
-		EntityType mobType = EntityType.fromName(mob);
-		if (mobType == null) {
-			sender.sendMessage(ChatColor.RED + "Mob type not found.");
-			return false;
+		//Get the list of mobs to spawn
+		List< EntityType > mobs = new ArrayList< EntityType >();
+		for (String mob : rawMobs.split("\\|")) {
+			EntityType mobType = EntityType.fromName(mob);
+			if (mobType == null) {
+				sender.sendMessage(ChatColor.RED + "Mob type not found: " + mob);
+				return false;
+			}
+
+			mobs.add(mobType);
 		}
+		mobs = mobs.reversed();
 
 		if (amount <= 0) {
 			sender.sendMessage(ChatColor.RED + "You need at least one!");
@@ -40,9 +50,26 @@ public class SpawnMob {
 				mobPos.setX(pos.getX() + Math.sin(orientation) * distance);
 				mobPos.setZ(pos.getZ() + Math.cos(orientation) * distance);
 			}
-			Entity entity = pos.getWorld().spawnEntity(mobPos, mobType);
-			//zombie.setCustomName("Undead Warrior"); // Example of customization
-			//zombie.setCustomNameVisible(true);
+
+			Entity parent = null;
+			for (EntityType mob : mobs) {
+				Entity entity = pos.getWorld().spawnEntity(mobPos, mob);
+
+				/*
+				if (entity instanceof Attributable) {
+					Attributable aEntity = (Attributable)entity;
+					aEntity.getAttribute(Attribute.SCALE).setBaseValue(0.1);
+				}
+				*/
+
+				if (parent != null)
+					entity.addPassenger(parent);
+				parent = entity;
+
+				//zombie.setCustomName("Undead Warrior"); // Example of customization
+				//zombie.setCustomNameVisible(true);
+				//TODO: Size, drops, equipment, custom NBT?, mounted units
+			}
 		}
 
 		return true;
