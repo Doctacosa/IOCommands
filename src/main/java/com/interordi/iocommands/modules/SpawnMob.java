@@ -39,7 +39,7 @@ public class SpawnMob {
 
 		for (String mobDef : Arrays.asList(rawMobs.split("\\|")).reversed()) {
 
-			String pattern = "([a-zA-Z0-9]+)|([*:\\-@])([a-zA-Z0-9.]+)";
+			String pattern = "([a-zA-Z0-9_]+)|([*:\\-@])([a-zA-Z0-9.]+)";
 
 			Pattern regex = Pattern.compile(pattern);
 			Matcher matcher = regex.matcher(mobDef);
