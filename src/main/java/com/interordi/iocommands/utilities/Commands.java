@@ -1,11 +1,9 @@
 package com.interordi.iocommands.utilities;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -78,11 +76,8 @@ public class Commands {
 				int x = Integer.MAX_VALUE;
 				int y = Integer.MAX_VALUE;
 				int z = Integer.MAX_VALUE;
-				@SuppressWarnings("unused")
 				int dx = Integer.MAX_VALUE;
-				@SuppressWarnings("unused")
 				int dy = Integer.MAX_VALUE;
-				@SuppressWarnings("unused")
 				int dz = Integer.MAX_VALUE;
 				
 				if (arg.indexOf("[") == 2) {
@@ -144,6 +139,20 @@ public class Commands {
 					}
 					
 				}
+
+				//Add missing values to complete a set
+				if (dx != Integer.MAX_VALUE) {
+					if (dy == Integer.MAX_VALUE)	dy = 0;
+					if (dz == Integer.MAX_VALUE)	dz = 0;
+				}
+				if (dy != Integer.MAX_VALUE) {
+					if (dx == Integer.MAX_VALUE)	dx = 0;
+					if (dz == Integer.MAX_VALUE)	dz = 0;
+				}
+				if (dz != Integer.MAX_VALUE) {
+					if (dx == Integer.MAX_VALUE)	dx = 0;
+					if (dy == Integer.MAX_VALUE)	dy = 0;
+				}
 				
 				//Check if we got all the parameters required
 				if (x != Integer.MAX_VALUE && y != Integer.MAX_VALUE && z != Integer.MAX_VALUE) {
@@ -166,41 +175,55 @@ public class Commands {
 						}
 					});
 					
-					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
-					for (Player p : playersRaw) {
-						if (location.getWorld() != p.getWorld())
-							continue;
-						
-						double distance = location.distance(p.getLocation());
-						players.add(new PlayerSort(p, distance));
-					}
-					
 				} else {
 					//Basic list
 					players = new HashSet< PlayerSort >();
+				}
+
+
+				//Check by distance
+				if (maxDistance != Integer.MAX_VALUE) {
+					//Build the list of distances
 					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
 					for (Player p : playersRaw) {
 						if (location.getWorld() != p.getWorld())
 							continue;
-
+						
 						double distance = location.distance(p.getLocation());
 						players.add(new PlayerSort(p, distance));
 					}
-				}
-				
-				
-				for (PlayerSort ps : players) {
-					double distance = ps.distance;
-					Player player = ps.player;
 
-					//Include players that match all conditions
-					if (distance >= minDistance &&
-						distance <= maxDistance) {
+					
+					for (PlayerSort ps : players) {
+						double distance = ps.distance;
+						Player player = ps.player;
+
+						//Include players that match all conditions for distance
+						if (distance >= minDistance &&
+							distance <= maxDistance) {
 							cmdTargets.targets.add(player.getDisplayName());
+							
+							//Stop as soon as we reach the number of wanted targets
+							if (limit > 0 && cmdTargets.targets.size() >= limit && !random)
+								break;
+						}
+					}
+				}
+
+
+				//Check by bounding box
+				if (dx != Integer.MAX_VALUE) {
+					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
+					for (Player p : playersRaw) {
+						if (location.getWorld() != p.getWorld()) {
+							continue;
+						}
 						
-						//Stop as soon as we reach the number of wanted targets
-						if (limit > 0 && cmdTargets.targets.size() >= limit && !random)
-							break;
+						if (p.getLocation().getBlockX() >= x && p.getLocation().getBlockX() <= x + dx &&
+							p.getLocation().getBlockY() >= y && p.getLocation().getBlockY() <= y + dy &&
+							p.getLocation().getBlockZ() >= z && p.getLocation().getBlockZ() <= z + dz) {
+							cmdTargets.targets.add(p.getDisplayName());
+						}
 					}
 				}
 				
