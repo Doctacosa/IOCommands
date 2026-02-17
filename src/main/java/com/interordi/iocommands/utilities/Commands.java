@@ -160,10 +160,11 @@ public class Commands {
 				}
 				
 				
+				//Define the sorting order of players
 				Set< PlayerSort > players = null;
 				
 				if (sort) {
-					//Get the distance of each player and sort them
+					//Sort by distance
 					players = new TreeSet< PlayerSort >(new Comparator< PlayerSort >() {
 						@Override
 						public int compare(PlayerSort o1, PlayerSort o2) {
@@ -174,26 +175,40 @@ public class Commands {
 							return 0;
 						}
 					});
-					
 				} else {
-					//Basic list
+					//Sort in no special order
 					players = new HashSet< PlayerSort >();
 				}
 
+				//Build a list of players for checks
+				Collection<? extends Player> playersRaw = server.getOnlinePlayers();
+				for (Player p : playersRaw) {
+					if (location.getWorld() != p.getWorld())
+						continue;
 
-				//Check by distance
-				if (maxDistance != Integer.MAX_VALUE) {
-					//Build the list of distances
-					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
-					for (Player p : playersRaw) {
-						if (location.getWorld() != p.getWorld())
+					double distance = location.distance(p.getLocation());
+					players.add(new PlayerSort(p, distance));
+				}
+
+				//Check by bounding box
+				if (dx != Integer.MAX_VALUE) {
+					playersRaw = server.getOnlinePlayers();
+					for (PlayerSort ps : players) {
+						Player player = ps.player;
+						if (location.getWorld() != player.getWorld()) {
 							continue;
+						}
 						
-						double distance = location.distance(p.getLocation());
-						players.add(new PlayerSort(p, distance));
+						if (player.getLocation().getBlockX() >= x && player.getLocation().getBlockX() <= x + dx &&
+							player.getLocation().getBlockY() >= y && player.getLocation().getBlockY() <= y + dy &&
+							player.getLocation().getBlockZ() >= z && player.getLocation().getBlockZ() <= z + dz) {
+							cmdTargets.targets.add(player.getDisplayName());
+						}
 					}
-
-					
+				//} else if (maxDistance != Integer.MAX_VALUE) {
+				} else {
+					//Not restricting per distance; catch all we're interested in
+					//Necessary sorting and limits are already defined
 					for (PlayerSort ps : players) {
 						double distance = ps.distance;
 						Player player = ps.player;
@@ -209,23 +224,6 @@ public class Commands {
 						}
 					}
 				}
-
-
-				//Check by bounding box
-				if (dx != Integer.MAX_VALUE) {
-					Collection<? extends Player> playersRaw = server.getOnlinePlayers();
-					for (Player p : playersRaw) {
-						if (location.getWorld() != p.getWorld()) {
-							continue;
-						}
-						
-						if (p.getLocation().getBlockX() >= x && p.getLocation().getBlockX() <= x + dx &&
-							p.getLocation().getBlockY() >= y && p.getLocation().getBlockY() <= y + dy &&
-							p.getLocation().getBlockZ() >= z && p.getLocation().getBlockZ() <= z + dz) {
-							cmdTargets.targets.add(p.getDisplayName());
-						}
-					}
-				}
 				
 				break;
 			}
@@ -237,7 +235,7 @@ public class Commands {
 			
 			i++;
 		}
-		
+
 		return cmdTargets;
 	}
 
