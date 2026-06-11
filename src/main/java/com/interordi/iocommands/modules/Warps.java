@@ -44,11 +44,11 @@ public class Warps {
 
 			reader = new CSVReader(new FileReader(this.file));
 		} catch (FileNotFoundException e) {
-			System.err.println("Failed to load the warps file");
+			Bukkit.getLogger().severe("Failed to load the warps file");
 			e.printStackTrace();
 			return;
 		} catch (IOException e) {
-			System.err.println("Failed to load the warps file");
+			Bukkit.getLogger().severe("Failed to load the warps file");
 			e.printStackTrace();
 			return;
 		}
@@ -67,7 +67,7 @@ public class Warps {
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.err.println("Failed to read from the warps file");
+			Bukkit.getLogger().severe("Failed to read from the warps file");
 			e.printStackTrace();
 			return;
 		}
@@ -81,7 +81,7 @@ public class Warps {
 		try {
 			writer = new CSVWriter(new FileWriter(this.file), ',');
 		} catch (IOException e) {
-			System.err.println("Failed to load the warps file");
+			Bukkit.getLogger().severe("Failed to load the warps file");
 			e.printStackTrace();
 			return;
 		}
@@ -116,7 +116,7 @@ public class Warps {
 		try {
 			writer.close();
 		} catch (IOException e) {
-			System.err.println("Failed to write to the warps file");
+			Bukkit.getLogger().severe("Failed to write to the warps file");
 			e.printStackTrace();
 			return;
 		}

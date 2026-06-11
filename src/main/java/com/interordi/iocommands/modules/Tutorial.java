@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -41,7 +42,7 @@ public class Tutorial {
 		if (exit) {
 			Location loc = locations.get(player.getUniqueId());
 			if (loc == null) {
-				System.out.println("No destination found!");
+				Bukkit.getLogger().severe("No destination found!");
 				return;
 			}
 			player.teleport(loc);
@@ -68,7 +69,7 @@ public class Tutorial {
 			if (!statsFile.exists())
 				statsFile.createNewFile();
 		} catch (IOException e) {
-			System.err.println("Failed to create the tutorial file");
+			Bukkit.getLogger().severe("Failed to create the tutorial file");
 			e.printStackTrace();
 			return;
 		}

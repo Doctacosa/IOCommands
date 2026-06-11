@@ -41,11 +41,11 @@ public class WorldSpawns {
 
 			reader = new CSVReader(new FileReader(this.file));
 		} catch (FileNotFoundException e) {
-			System.err.println("Failed to load the spawns file");
+			Bukkit.getLogger().severe("Failed to load the spawns file");
 			e.printStackTrace();
 			return;
 		} catch (IOException e) {
-			System.err.println("Failed to load the spawns file");
+			Bukkit.getLogger().severe("Failed to load the spawns file");
 			e.printStackTrace();
 			return;
 		}
@@ -62,7 +62,7 @@ public class WorldSpawns {
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.err.println("Failed to read from the spawns file");
+			Bukkit.getLogger().severe("Failed to read from the spawns file");
 			e.printStackTrace();
 			return;
 		}
@@ -76,7 +76,7 @@ public class WorldSpawns {
 		try {
 			writer = new CSVWriter(new FileWriter(this.file), ',');
 		} catch (IOException e) {
-			System.err.println("Failed to load the spawns file");
+			Bukkit.getLogger().severe("Failed to load the spawns file");
 			e.printStackTrace();
 			return;
 		}
@@ -99,7 +99,7 @@ public class WorldSpawns {
 		try {
 			writer.close();
 		} catch (IOException e) {
-			System.err.println("Failed to write to the spawns file");
+			Bukkit.getLogger().severe("Failed to write to the spawns file");
 			e.printStackTrace();
 			return;
 		}

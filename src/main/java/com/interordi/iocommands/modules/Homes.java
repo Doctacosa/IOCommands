@@ -43,11 +43,11 @@ public class Homes {
 
 			reader = new CSVReader(new FileReader(this.file));
 		} catch (FileNotFoundException e) {
-			System.err.println("Failed to load the homes file");
+			Bukkit.getLogger().severe("Failed to load the homes file");
 			e.printStackTrace();
 			return;
 		} catch (IOException e) {
-			System.err.println("Failed to load the homes file");
+			Bukkit.getLogger().severe("Failed to load the homes file");
 			e.printStackTrace();
 			return;
 		}
@@ -64,7 +64,7 @@ public class Homes {
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.err.println("Failed to read from the homes file");
+			Bukkit.getLogger().severe("Failed to read from the homes file");
 			e.printStackTrace();
 			return;
 		}
@@ -78,7 +78,7 @@ public class Homes {
 		try {
 			writer = new CSVWriter(new FileWriter(this.file), ',');
 		} catch (IOException e) {
-			System.err.println("Failed to load the homes file");
+			Bukkit.getLogger().severe("Failed to load the homes file");
 			e.printStackTrace();
 			return;
 		}
@@ -103,7 +103,7 @@ public class Homes {
 		try {
 			writer.close();
 		} catch (IOException e) {
-			System.err.println("Failed to write to the homes file");
+			Bukkit.getLogger().severe("Failed to write to the homes file");
 			e.printStackTrace();
 			return;
 		}
